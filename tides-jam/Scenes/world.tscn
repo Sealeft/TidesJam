@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
 [ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="5_isle0"]
 [ext_resource type="PackedScene" path="res://Scenes/rock.tscn" id="6_rock0"]
-[ext_resource type="PackedScene" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
+[ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
 
 [node name="World" type="Node2D" unique_id=387763137]
 script = ExtResource("1_8j60k")
@@ -50,10 +50,10 @@ position = Vector2(295, 490)
 position = Vector2(900, 360)
 
 [node name="Whirlpool1" parent="." unique_id=1138843827 instance=ExtResource("7_whirl")]
-position = Vector2(575, 215)
+position = Vector2(568, 118)
 
 [node name="Whirlpool2" parent="." unique_id=509156178 instance=ExtResource("7_whirl")]
-position = Vector2(410, 570)
+position = Vector2(559, 690)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=698679777]
 layer = -3
@@ -95,7 +95,7 @@ anchors_preset = 0
 offset_left = 130.0
 offset_top = 8.0
 offset_right = 430.0
-offset_bottom = 112.0
+offset_bottom = 148.0
 
 [node name="MissionLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=124876991]
 layout_mode = 0
@@ -109,9 +109,120 @@ offset_top = 36.0
 offset_right = 300.0
 offset_bottom = 68.0
 
-[node name="ScoreLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=495946689]
+[node name="HullLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=415485808]
 layout_mode = 0
 offset_top = 72.0
 offset_right = 300.0
 offset_bottom = 104.0
+text = "Hull: 100%"
+
+[node name="ScoreLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=495946689]
+layout_mode = 0
+offset_top = 108.0
+offset_right = 300.0
+offset_bottom = 140.0
 text = "Score: 0"
+
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=435197973]
+layer = 10
+
+[node name="StartScreen" type="ColorRect" parent="MenuLayer" unique_id=1672337272]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.05, 0.15, 0.88)
+
+[node name="Title" type="Label" parent="MenuLayer/StartScreen" unique_id=1902567803]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -160.0
+offset_right = 200.0
+offset_bottom = -70.0
+theme_override_font_sizes/font_size = 72
+text = "TIDES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MenuLayer/StartScreen" unique_id=1886881332]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -40.0
+offset_right = 250.0
+theme_override_font_sizes/font_size = 20
+text = "Deliver cargo across the tides."
+horizontal_alignment = 1
+
+[node name="StartHint" type="Label" parent="MenuLayer/StartScreen" unique_id=1209325312]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 18
+text = "Press any key to begin"
+horizontal_alignment = 1
+
+[node name="DeathScreen" type="ColorRect" parent="MenuLayer" unique_id=434508975]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.01, 0.01, 0.9)
+
+[node name="DeathTitle" type="Label" parent="MenuLayer/DeathScreen" unique_id=640931026]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = -60.0
+theme_override_font_sizes/font_size = 64
+text = "YOU SANK"
+horizontal_alignment = 1
+
+[node name="DeathScoreLabel" type="Label" parent="MenuLayer/DeathScreen" unique_id=404005281]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 32
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="RestartHint" type="Label" parent="MenuLayer/DeathScreen" unique_id=1148357276]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 80.0
+offset_right = 200.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 18
+text = "Press any key to restart"
+horizontal_alignment = 1

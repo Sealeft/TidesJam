@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+signal boat_sunk
+signal cargo_lost
+
 @export var paddle_force  := 520.0
 @export var turn_force    := 320.0
 @export var max_speed     := 320.0
@@ -22,16 +25,18 @@ extends RigidBody2D
 @export var chop_interval  := 0.35   # average seconds between nudges
 
 # Cargo — extra mass slows the boat and reduces top speed; crashes damage cargo
-@export var cargo_mass             := 2.5
-@export var cargo_speed_penalty    := 0.35  # fraction of max_speed lost when loaded
+@export var cargo_mass             := 1.5
+@export var cargo_speed_penalty    := 0.05  # fraction of max_speed lost when loaded
 @export var damage_speed_threshold := 60.0  # px/s — below this, crashes don't damage
-@export var damage_sensitivity     := 0.4   # max damage fraction from a full-speed crash
+@export var damage_sensitivity     := 0.4   # cargo damage fraction from a full-speed crash
+@export var hull_damage_sensitivity := 0.25  # hull damage fraction from a full-speed crash
 
 @onready var left_oar:  Marker2D = $LeftOar
 @onready var right_oar: Marker2D = $RightOar
 
 var has_cargo    := false
 var cargo_health := 1.0   # 0.0 – 1.0
+var boat_health  := 1.0   # 0.0 – 1.0
 
 var _wave_time        := 0.0
 var _chop_timer       := 0.0
@@ -141,8 +146,18 @@ func unload_cargo() -> void:
 
 
 func _on_body_entered(_body: Node) -> void:
-	if not has_cargo:
+	if _speed_last_frame <= damage_speed_threshold:
 		return
-	if _speed_last_frame > damage_speed_threshold:
-		var impact := (_speed_last_frame - damage_speed_threshold) / (max_speed - damage_speed_threshold)
+	var impact := (_speed_last_frame - damage_speed_threshold) / (max_speed - damage_speed_threshold)
+
+	# Hull takes damage from every collision
+	boat_health = maxf(0.0, boat_health - impact * hull_damage_sensitivity)
+	if boat_health <= 0.0:
+		boat_sunk.emit()
+		return
+
+	# Cargo takes additional damage only when loaded
+	if has_cargo:
 		cargo_health = maxf(0.0, cargo_health - impact * damage_sensitivity)
+		if cargo_health <= 0.0:
+			cargo_lost.emit()
