@@ -45,6 +45,7 @@ func _ready() -> void:
 	boat.boat_sunk.connect(_on_boat_sunk)
 	boat.cargo_lost.connect(_on_cargo_lost)
 	_start_new_delivery()
+	AudioManager.play("res://Audio/OceanAmbience.wav")
 
 
 func _physics_process(delta: float) -> void:

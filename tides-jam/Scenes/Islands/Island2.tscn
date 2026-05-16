@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://s0wvebi88b0u"]
+
+[ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="1_887v2"]
+[ext_resource type="Texture2D" uid="uid://dtfdbnjk6mrlp" path="res://Art/IslandSprite2.png" id="2_m378q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m378q"]
+size = Vector2(336, 161)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7at8"]
+size = Vector2(333, 164)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nmkg"]
+size = Vector2(208, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns76p"]
+size = Vector2(148, 73)
+
+[node name="Island2" unique_id=330354515 instance=ExtResource("1_887v2")]
+island_name = "Island2"
+
+[node name="Sprite2D" parent="." index="0" unique_id=657449277]
+texture = ExtResource("2_m378q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="0" unique_id=1612913316]
+position = Vector2(-32, 8.5)
+shape = SubResource("RectangleShape2D_m378q")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="1" unique_id=1854759024]
+position = Vector2(32.5, -53)
+shape = SubResource("RectangleShape2D_d7at8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="2" unique_id=31262614]
+position = Vector2(32, -167)
+shape = SubResource("RectangleShape2D_4nmkg")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="3" unique_id=176273994]
+position = Vector2(-66, 123.5)
+shape = SubResource("RectangleShape2D_ns76p")
+
+[node name="DockZone" parent="." index="2" unique_id=2123998792]
+visible = true
+position = Vector2(72, 106)
+
+[node name="StatusLabel" parent="." index="3" unique_id=854552533]
+offset_left = 31.0
+offset_top = 98.0
+offset_right = 171.0
+offset_bottom = 128.0
