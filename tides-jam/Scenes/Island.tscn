@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://deixh30fjhnhv"]
 
 [ext_resource type="Script" uid="uid://bsev4irdxtuku" path="res://Scenes/island.gd" id="1_isl00"]
+[ext_resource type="Texture2D" uid="uid://c4bg5s7f6t618" path="res://Art/IslandSprite1.png" id="2_3es8w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0"]
 radius = 82.006096
@@ -8,17 +9,14 @@ radius = 82.006096
 [node name="Island" type="Node2D" unique_id=330354515]
 script = ExtResource("1_isl00")
 
-[node name="Visual" type="Polygon2D" parent="." unique_id=1425594817]
-color = Color(0.25, 0.52, 0.12, 1)
-polygon = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
-uv = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=657449277]
+scale = Vector2(4, 4)
+texture = ExtResource("2_3es8w")
 
 [node name="Body" type="StaticBody2D" parent="." unique_id=1038371373]
 
-[node name="IslandShape" type="CollisionPolygon2D" parent="Body" unique_id=1752515705]
-polygon = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
-
 [node name="DockZone" type="Area2D" parent="." unique_id=2123998792]
+visible = false
 
 [node name="DockShape" type="CollisionShape2D" parent="DockZone" unique_id=1383802836]
 shape = SubResource("CircleShape2D_0")

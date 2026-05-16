@@ -5,8 +5,36 @@
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
 [ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="5_isle0"]
-[ext_resource type="PackedScene" path="res://Scenes/rock.tscn" id="6_rock0"]
+[ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]
+[ext_resource type="PackedScene" uid="uid://dtemxbf54v81o" path="res://Scenes/rock.tscn" id="6_rock0"]
 [ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k7acu"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5v1tr"]
+noise = SubResource("FastNoiseLite_k7acu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0fj1v"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ikia7"]
+noise = SubResource("FastNoiseLite_0fj1v")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5v1tr"]
+shader = ExtResource("6_k7acu")
+shader_parameter/waterNoise = SubResource("NoiseTexture2D_ikia7")
+shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_5v1tr")
+shader_parameter/waterColor = Color(0.11764706, 0.34509805, 0.5803922, 1)
+shader_parameter/colorCorection = 0.35
+shader_parameter/distortionForce = 0.01
+shader_parameter/WDBrightness = 1.5
+shader_parameter/WDFreq = 0.60000000894071
+shader_parameter/WDSize = 0.9
+shader_parameter/WDSpeed = 4.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
+shader_parameter/backGroundDirX = 0.01
+shader_parameter/backGroundDirY = 0.01
 
 [node name="World" type="Node2D" unique_id=387763137]
 script = ExtResource("1_8j60k")
@@ -17,6 +45,7 @@ autostart = true
 
 [node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
 position = Vector2(577, 315)
+cargo_mass = 0.75
 
 [node name="Harbor" parent="." unique_id=2091609734 instance=ExtResource("5_isle0")]
 position = Vector2(76, 118)
@@ -55,17 +84,20 @@ position = Vector2(568, 118)
 [node name="Whirlpool2" parent="." unique_id=509156178 instance=ExtResource("7_whirl")]
 position = Vector2(559, 690)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=698679777]
+[node name="WaterLayer" type="CanvasLayer" parent="." unique_id=698679777]
 layer = -3
 follow_viewport_enabled = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1704547045]
+[node name="Water" type="TextureRect" parent="WaterLayer" unique_id=1704547045]
 modulate = Color(0.12156863, 1, 1, 0.42352942)
+material = SubResource("ShaderMaterial_5v1tr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_right = -1.0
+offset_left = -915.0
+offset_top = -1070.0
+offset_right = 933.0
+offset_bottom = 1282.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_go701")
