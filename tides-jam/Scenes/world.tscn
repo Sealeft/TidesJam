@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://dlpjknyf0dlcv" path="res://Scenes/world.gd" id="1_8j60k"]
 [ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
-[ext_resource type="Script" uid="uid://b6l2nyadqjimk" path="res://Scenes/arrow.gd" id="3_5v1tr"]
+[ext_resource type="Script" path="res://Scenes/arrow.gd" id="3_5v1tr"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
 [ext_resource type="PackedScene" uid="uid://cknog38yt3v5u" path="res://Scenes/Islands/Island1.tscn" id="3_k7acu"]
+[ext_resource type="Texture2D" uid="uid://cy13ute1sc7jo" path="res://Art/arrow.png" id="4_7yui6"]
 [ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]
 [ext_resource type="PackedScene" uid="uid://dtemxbf54v81o" path="res://Scenes/rock.tscn" id="6_rock0"]
 [ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
@@ -49,6 +50,12 @@ autostart = true
 [node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
 position = Vector2(577, 315)
 cargo_mass = 0.75
+
+[node name="Node2D" type="Node2D" parent="Boat" unique_id=204048574]
+script = ExtResource("3_5v1tr")
+
+[node name="ArrowSprite" type="Sprite2D" parent="Boat/Node2D" unique_id=621493020]
+texture = ExtResource("4_7yui6")
 
 [node name="Island1" parent="." unique_id=330354515 instance=ExtResource("3_k7acu")]
 position = Vector2(1003, 67)
