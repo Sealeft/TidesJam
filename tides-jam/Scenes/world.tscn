@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://bf3ctxmhtmkne"]
+
+[ext_resource type="Script" uid="uid://dlpjknyf0dlcv" path="res://Scenes/world.gd" id="1_8j60k"]
+[ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
+[ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
+[ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
+[ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="5_isle0"]
+[ext_resource type="PackedScene" path="res://Scenes/rock.tscn" id="6_rock0"]
+[ext_resource type="PackedScene" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
+
+[node name="World" type="Node2D" unique_id=387763137]
+script = ExtResource("1_8j60k")
+
+[node name="Timer" type="Timer" parent="." unique_id=222476802]
+wait_time = 5.0
+autostart = true
+
+[node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
+position = Vector2(577, 315)
+
+[node name="Harbor" parent="." unique_id=2091609734 instance=ExtResource("5_isle0")]
+position = Vector2(76, 118)
+island_name = "Harbor"
+
+[node name="Cove" parent="." unique_id=503571318 instance=ExtResource("5_isle0")]
+position = Vector2(1139, 100)
+island_name = "Cove"
+
+[node name="Reef" parent="." unique_id=872865910 instance=ExtResource("5_isle0")]
+position = Vector2(125, 675)
+island_name = "Reef"
+
+[node name="Shoal" parent="." unique_id=753239633 instance=ExtResource("5_isle0")]
+position = Vector2(1072, 698)
+island_name = "Shoal"
+
+[node name="Rock1" parent="." unique_id=1864561052 instance=ExtResource("6_rock0")]
+position = Vector2(390, 230)
+
+[node name="Rock2" parent="." unique_id=602863780 instance=ExtResource("6_rock0")]
+position = Vector2(760, 175)
+
+[node name="Rock3" parent="." unique_id=1374444200 instance=ExtResource("6_rock0")]
+position = Vector2(610, 460)
+
+[node name="Rock4" parent="." unique_id=2077073581 instance=ExtResource("6_rock0")]
+position = Vector2(295, 490)
+
+[node name="Rock5" parent="." unique_id=995990776 instance=ExtResource("6_rock0")]
+position = Vector2(900, 360)
+
+[node name="Whirlpool1" parent="." unique_id=1138843827 instance=ExtResource("7_whirl")]
+position = Vector2(575, 215)
+
+[node name="Whirlpool2" parent="." unique_id=509156178 instance=ExtResource("7_whirl")]
+position = Vector2(410, 570)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=698679777]
+layer = -3
+follow_viewport_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1704547045]
+modulate = Color(0.12156863, 1, 1, 0.42352942)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_go701")
+stretch_mode = 1
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1026843574]
+
+[node name="TideHUD" type="Control" parent="HUDLayer" unique_id=1008166431]
+custom_minimum_size = Vector2(120, 140)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 120.0
+offset_bottom = 140.0
+script = ExtResource("3_hud0")
+
+[node name="StrengthLabel" type="Label" parent="HUDLayer/TideHUD" unique_id=142557449]
+layout_mode = 0
+offset_top = 108.0
+offset_right = 120.0
+offset_bottom = 140.0
+text = "Tide: 0"
+horizontal_alignment = 1
+
+[node name="DeliveryHUD" type="Control" parent="HUDLayer" unique_id=1940554761]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 130.0
+offset_top = 8.0
+offset_right = 430.0
+offset_bottom = 112.0
+
+[node name="MissionLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=124876991]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 32.0
+text = "Loading..."
+
+[node name="HealthLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=211421676]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 300.0
+offset_bottom = 68.0
+
+[node name="ScoreLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=495946689]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 300.0
+offset_bottom = 104.0
+text = "Score: 0"

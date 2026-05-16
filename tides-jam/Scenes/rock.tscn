@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://crock0000001"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_0"]
+points = PackedVector2Array(0, -22, 16, -10, 20, 8, 8, 22, -12, 20, -22, 4, -14, -16)
+
+[node name="Rock" type="StaticBody2D"]
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.38, 0.35, 0.32, 1)
+polygon = PackedVector2Array(0, -22, 16, -10, 20, 8, 8, 22, -12, 20, -22, 4, -14, -16)
+
+[node name="RockShape" type="CollisionShape2D" parent="."]
+shape = SubResource("ConvexPolygonShape2D_0")

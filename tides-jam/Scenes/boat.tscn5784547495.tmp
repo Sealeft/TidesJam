@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://blxhgqgobhcow"]
+
+[ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="1_d82p8"]
+[ext_resource type="Script" uid="uid://befaw1o6b1n5h" path="res://Scenes/boat.gd" id="1_g7r5y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d82p8"]
+size = Vector2(40, 118)
+
+[node name="Boat" type="RigidBody2D" unique_id=25449398]
+gravity_scale = 0.0
+script = ExtResource("1_g7r5y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2057406936]
+texture_filter = 1
+scale = Vector2(0.359375, 1)
+texture = ExtResource("1_d82p8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355266272]
+shape = SubResource("RectangleShape2D_d82p8")
+
+[node name="LeftOar" type="Marker2D" parent="." unique_id=974410958]
+position = Vector2(-23, 0)
+
+[node name="RightOar" type="Marker2D" parent="." unique_id=507978813]
+position = Vector2(23, 0)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=280702678]

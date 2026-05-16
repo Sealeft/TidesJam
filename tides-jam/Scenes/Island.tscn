@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://deixh30fjhnhv"]
+
+[ext_resource type="Script" uid="uid://bsev4irdxtuku" path="res://Scenes/island.gd" id="1_isl00"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0"]
+radius = 82.006096
+
+[node name="Island" type="Node2D" unique_id=330354515]
+script = ExtResource("1_isl00")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=1425594817]
+color = Color(0.25, 0.52, 0.12, 1)
+polygon = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
+uv = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
+
+[node name="Body" type="StaticBody2D" parent="." unique_id=1038371373]
+
+[node name="IslandShape" type="CollisionPolygon2D" parent="Body" unique_id=1752515705]
+polygon = PackedVector2Array(0, -45, 38, -22, 38, 22, 0, 45, -38, 22, -38, -22)
+
+[node name="DockZone" type="Area2D" parent="." unique_id=2123998792]
+
+[node name="DockShape" type="CollisionShape2D" parent="DockZone" unique_id=1383802836]
+shape = SubResource("CircleShape2D_0")
+
+[node name="StatusLabel" type="Label" parent="." unique_id=854552533]
+offset_left = -70.0
+offset_top = 50.0
+offset_right = 70.0
+offset_bottom = 80.0
+horizontal_alignment = 1
