@@ -141,7 +141,7 @@ func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 	if left and not right:
 		apply_force(
 			forward_dir * paddle_force * 0.6 * dir_mult,
-			left_oar.global_position - global_position
+			right_oar.global_position - global_position
 		)
 		var torque_dir := -1.0 if reverse else 1.0
 		apply_torque(turn_eff * torque_dir)
@@ -151,7 +151,7 @@ func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 	if right and not left:
 		apply_force(
 			forward_dir * paddle_force * 0.6 * dir_mult,
-			right_oar.global_position - global_position
+			left_oar.global_position - global_position
 		)
 		var torque_dir := 1.0 if reverse else -1.0
 		apply_torque(turn_eff * torque_dir)

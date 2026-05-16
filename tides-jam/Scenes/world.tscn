@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://dlpjknyf0dlcv" path="res://Scenes/world.gd" id="1_8j60k"]
 [ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
+[ext_resource type="Script" uid="uid://b6l2nyadqjimk" path="res://Scenes/arrow.gd" id="3_5v1tr"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
+[ext_resource type="Texture2D" uid="uid://cy13ute1sc7jo" path="res://Art/arrow.png" id="4_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="5_isle0"]
 [ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]
 [ext_resource type="PackedScene" uid="uid://dtemxbf54v81o" path="res://Scenes/rock.tscn" id="6_rock0"]
@@ -46,6 +48,12 @@ autostart = true
 [node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
 position = Vector2(577, 315)
 cargo_mass = 0.75
+
+[node name="Arrow" type="Node2D" parent="Boat" unique_id=214095884]
+script = ExtResource("3_5v1tr")
+
+[node name="ArrowSprite" type="Sprite2D" parent="Boat/Arrow" unique_id=1110361764]
+texture = ExtResource("4_0fj1v")
 
 [node name="Harbor" parent="." unique_id=2091609734 instance=ExtResource("5_isle0")]
 position = Vector2(76, 118)
