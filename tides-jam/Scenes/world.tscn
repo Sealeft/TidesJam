@@ -52,6 +52,12 @@ cargo_mass = 0.75
 [node name="Island1" parent="." unique_id=330354515 instance=ExtResource("3_k7acu")]
 position = Vector2(1003, 67)
 
+[node name="Island2" parent="." unique_id=570782506 instance=ExtResource("9_5v1tr")]
+position = Vector2(19, 54)
+
+[node name="Island3" parent="." unique_id=309626073 instance=ExtResource("10_0fj1v")]
+position = Vector2(27, 699)
+
 [node name="Rock1" parent="." unique_id=1864561052 instance=ExtResource("6_rock0")]
 position = Vector2(390, 230)
 
@@ -248,9 +254,3 @@ offset_bottom = 120.0
 theme_override_font_sizes/font_size = 18
 text = "Press any key to restart"
 horizontal_alignment = 1
-
-[node name="Island2" parent="." unique_id=570782506 instance=ExtResource("9_5v1tr")]
-position = Vector2(19, 54)
-
-[node name="Island3" parent="." unique_id=309626073 instance=ExtResource("10_0fj1v")]
-position = Vector2(27, 699)

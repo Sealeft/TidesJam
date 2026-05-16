@@ -123,12 +123,12 @@ func _animate_oars(delta: float, left: bool, right: bool, reverse: bool) -> void
 
 func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 	var forward_dir := Vector2.UP.rotated(rotation)
-	var dir_mult    := -0.8 if reverse else 1.0
+	var dir_mult    := -0.3 if reverse else 1.0
 
 	# S alone (no oar) → both oars backward
-	if reverse and not left and not right:
-		apply_central_force(forward_dir * paddle_force * -0.8)
-		return
+	#if reverse and not left and not right:
+		#apply_central_force(forward_dir * paddle_force * -0.3)
+		#return
 
 	# BOTH → strong force in current direction (forward or back)
 	if left and right:
@@ -214,6 +214,7 @@ func _on_body_entered(_body: Node) -> void:
 
 	# Hull takes damage from every collision
 	boat_health = maxf(0.0, boat_health - impact * hull_damage_sensitivity)
+	AudioManager.play("res://Audio/Crash1.wav")
 	if boat_health <= 0.0:
 		boat_sunk.emit()
 		return
