@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dtr2mc30mvhgy"]
+
+[ext_resource type="Texture2D" uid="uid://b6sox8lh7jmxo" path="res://Art/Barrel.png" id="1_3w4xy"]
+[ext_resource type="Script" uid="uid://exwkupbhemwv" path="res://Scenes/barrel.gd" id="1_m5w3l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3w4xy"]
+radius = 22.0
+height = 62.0
+
+[node name="Barrel" type="StaticBody2D" unique_id=489077027 groups=["Barrel"]]
+script = ExtResource("1_m5w3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2143528914]
+scale = Vector2(2, 2)
+texture = ExtResource("1_3w4xy")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=2025341138]
+shape = SubResource("CapsuleShape2D_3w4xy")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=103492743]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D" unique_id=1603682565]
+shape = SubResource("CapsuleShape2D_3w4xy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

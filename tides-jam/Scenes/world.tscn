@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
 [ext_resource type="PackedScene" uid="uid://s0wvebi88b0u" path="res://Scenes/Islands/Island2.tscn" id="9_5v1tr"]
 [ext_resource type="PackedScene" uid="uid://bqb1wpkcu75n8" path="res://Scenes/Islands/Island3.tscn" id="10_0fj1v"]
+[ext_resource type="Script" uid="uid://debvjc1eusbbs" path="res://Scenes/barrel_spawner.gd" id="13_c5t2i"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_k7acu"]
 
@@ -262,3 +263,13 @@ offset_bottom = 120.0
 theme_override_font_sizes/font_size = 18
 text = "Press any key to restart"
 horizontal_alignment = 1
+
+[node name="BarrelSpawner" type="Node2D" parent="." unique_id=37320910]
+position = Vector2(1802, 405)
+script = ExtResource("13_c5t2i")
+
+[node name="BarrelSpawnTimer" type="Timer" parent="BarrelSpawner" unique_id=1778226547]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="BarrelSpawner/BarrelSpawnTimer" to="BarrelSpawner" method="_on_barrel_spawn_timer_timeout"]
