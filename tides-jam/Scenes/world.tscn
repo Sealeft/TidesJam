@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
-[ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="5_isle0"]
+[ext_resource type="PackedScene" uid="uid://cknog38yt3v5u" path="res://Scenes/Islands/Island1.tscn" id="3_k7acu"]
 [ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]
 [ext_resource type="PackedScene" uid="uid://dtemxbf54v81o" path="res://Scenes/rock.tscn" id="6_rock0"]
 [ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
+[ext_resource type="PackedScene" uid="uid://s0wvebi88b0u" path="res://Scenes/Islands/Island2.tscn" id="9_5v1tr"]
+[ext_resource type="PackedScene" uid="uid://bqb1wpkcu75n8" path="res://Scenes/Islands/Island3.tscn" id="10_0fj1v"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_k7acu"]
 
@@ -47,21 +49,8 @@ autostart = true
 position = Vector2(577, 315)
 cargo_mass = 0.75
 
-[node name="Harbor" parent="." unique_id=2091609734 instance=ExtResource("5_isle0")]
-position = Vector2(76, 118)
-island_name = "Harbor"
-
-[node name="Cove" parent="." unique_id=503571318 instance=ExtResource("5_isle0")]
-position = Vector2(1139, 100)
-island_name = "Cove"
-
-[node name="Reef" parent="." unique_id=872865910 instance=ExtResource("5_isle0")]
-position = Vector2(125, 675)
-island_name = "Reef"
-
-[node name="Shoal" parent="." unique_id=753239633 instance=ExtResource("5_isle0")]
-position = Vector2(1072, 698)
-island_name = "Shoal"
+[node name="Island1" parent="." unique_id=330354515 instance=ExtResource("3_k7acu")]
+position = Vector2(1003, 67)
 
 [node name="Rock1" parent="." unique_id=1864561052 instance=ExtResource("6_rock0")]
 position = Vector2(390, 230)
@@ -79,10 +68,10 @@ position = Vector2(295, 490)
 position = Vector2(900, 360)
 
 [node name="Whirlpool1" parent="." unique_id=1138843827 instance=ExtResource("7_whirl")]
-position = Vector2(568, 118)
+position = Vector2(559, -227)
 
 [node name="Whirlpool2" parent="." unique_id=509156178 instance=ExtResource("7_whirl")]
-position = Vector2(559, 690)
+position = Vector2(699, 1004)
 
 [node name="WaterLayer" type="CanvasLayer" parent="." unique_id=698679777]
 layer = -3
@@ -94,10 +83,10 @@ material = SubResource("ShaderMaterial_5v1tr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -915.0
-offset_top = -1070.0
-offset_right = 933.0
-offset_bottom = 1282.0
+offset_left = -934.0
+offset_top = -1224.0
+offset_right = 914.0
+offset_bottom = 1128.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_go701")
@@ -157,6 +146,7 @@ text = "Score: 0"
 
 [node name="MenuLayer" type="CanvasLayer" parent="." unique_id=435197973]
 layer = 10
+visible = false
 
 [node name="StartScreen" type="ColorRect" parent="MenuLayer" unique_id=1672337272]
 anchors_preset = 15
@@ -258,3 +248,9 @@ offset_bottom = 120.0
 theme_override_font_sizes/font_size = 18
 text = "Press any key to restart"
 horizontal_alignment = 1
+
+[node name="Island2" parent="." unique_id=570782506 instance=ExtResource("9_5v1tr")]
+position = Vector2(19, 54)
+
+[node name="Island3" parent="." unique_id=309626073 instance=ExtResource("10_0fj1v")]
+position = Vector2(27, 699)
