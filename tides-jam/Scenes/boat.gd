@@ -24,15 +24,29 @@ signal cargo_lost
 @export var chop_strength  := 12.0
 @export var chop_interval  := 0.35   # average seconds between nudges
 
-# Cargo — extra mass slows the boat and reduces top speed; crashes damage cargo
-@export var cargo_mass             := 1.5
+# Cargo — heavier boat is harder to control, not just slower
+@export var cargo_mass             := 1.2
 @export var cargo_speed_penalty    := 0.05  # fraction of max_speed lost when loaded
 @export var damage_speed_threshold := 60.0  # px/s — below this, crashes don't damage
 @export var damage_sensitivity     := 0.4   # cargo damage fraction from a full-speed crash
 @export var hull_damage_sensitivity := 0.25  # hull damage fraction from a full-speed crash
+# Loaded handling penalties
+@export var cargo_angular_drag_mult := 0.38  # angular drag fraction when loaded (boat keeps spinning)
+@export var cargo_wave_rock_mult    := 3.2   # wave rocking multiplier when loaded
+@export var cargo_turn_mult         := 0.48  # turn force fraction when loaded
+@export var cargo_chop_mult         := 2.2   # micro-drift multiplier when loaded
+@export var cargo_spoil_rate        := 0.012 # cargo health lost per second while aboard
+@export var cargo_spoil_delay       := 15.0  # seconds after pickup before spoiling begins
+# Oar animation
+@export var oar_stroke_speed := 50   # phase advance rate while rowing (rad/s)
+@export var oar_max_angle    := 28.0  # maximum oar sweep in degrees
 
-@onready var left_oar:  Marker2D = $LeftOar
-@onready var right_oar: Marker2D = $RightOar
+@onready var left_oar:        Marker2D = $LeftOar
+@onready var right_oar:       Marker2D = $RightOar
+@onready var left_oar_sprite:  Sprite2D = $LeftOarSprite
+var left_oar_direction := 1
+@onready var right_oar_sprite: Sprite2D = $RightOarSprite
+var right_oar_direction := 1
 
 var has_cargo    := false
 var cargo_health := 1.0   # 0.0 – 1.0
@@ -41,6 +55,7 @@ var boat_health  := 1.0   # 0.0 – 1.0
 var _wave_time        := 0.0
 var _chop_timer       := 0.0
 var _speed_last_frame := 0.0
+var _spoil_timer      := 0.0  # counts down before spoilage starts
 
 
 func _ready() -> void:
@@ -60,12 +75,51 @@ func _physics_process(delta: float) -> void:
 	_wave_time  += delta
 	_chop_timer -= delta
 
+	_animate_oars(delta, left, right, reverse)
 	apply_rowing(left, right, reverse)
 	apply_wave_rock()
 	apply_chop()
 	apply_water_drag(delta)
 	clamp_velocity()
 
+	# Cargo spoils over time — linger too long and it degrades
+	if has_cargo:
+		if _spoil_timer > 0.0:
+			_spoil_timer -= delta
+		else:
+			cargo_health -= cargo_spoil_rate * delta
+			if cargo_health <= 0.0:
+				cargo_health = 0.0
+				cargo_lost.emit()
+
+
+func _animate_oars(delta: float, left: bool, right: bool, reverse: bool) -> void:
+	if left:
+		# Rotate continuously
+		left_oar_sprite.rotation_degrees += oar_stroke_speed * delta * left_oar_direction
+		# Hit max angle → reverse
+		if left_oar_sprite.rotation_degrees >= oar_max_angle:
+			left_oar_sprite.rotation_degrees = oar_max_angle
+			left_oar_direction = -1
+		# Hit negative max angle → reverse
+		elif left_oar_sprite.rotation_degrees <= -oar_max_angle:
+			left_oar_sprite.rotation_degrees = -oar_max_angle
+			left_oar_direction = 1
+	else:
+		left_oar_sprite.rotation_degrees = move_toward(left_oar_sprite.rotation_degrees, 0.0, oar_stroke_speed * delta)
+	if right:
+		# Rotate continuously
+		right_oar_sprite.rotation_degrees += oar_stroke_speed * delta * right_oar_direction
+		# Hit max angle → reverse
+		if right_oar_sprite.rotation_degrees >= oar_max_angle:
+			right_oar_sprite.rotation_degrees = oar_max_angle
+			right_oar_direction = -1
+		# Hit negative max angle → reverse
+		elif right_oar_sprite.rotation_degrees <= -oar_max_angle:
+			right_oar_sprite.rotation_degrees = -oar_max_angle
+			right_oar_direction = 1
+	else:
+		right_oar_sprite.rotation_degrees = move_toward(right_oar_sprite.rotation_degrees, 0.0, oar_stroke_speed * delta)
 
 func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 	var forward_dir := Vector2.UP.rotated(rotation)
@@ -81,6 +135,8 @@ func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 		apply_central_force(forward_dir * paddle_force * dir_mult)
 		return
 
+	var turn_eff := turn_force * turn_stability * (cargo_turn_mult if has_cargo else 1.0)
+
 	# LEFT ONLY → forward/back + turn
 	if left and not right:
 		apply_force(
@@ -88,7 +144,7 @@ func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 			left_oar.global_position - global_position
 		)
 		var torque_dir := -1.0 if reverse else 1.0
-		apply_torque(turn_force * turn_stability * torque_dir)
+		apply_torque(turn_eff * torque_dir)
 		return
 
 	# RIGHT ONLY → forward/back + turn
@@ -98,17 +154,19 @@ func apply_rowing(left: bool, right: bool, reverse: bool) -> void:
 			right_oar.global_position - global_position
 		)
 		var torque_dir := 1.0 if reverse else -1.0
-		apply_torque(turn_force * turn_stability * torque_dir)
+		apply_torque(turn_eff * torque_dir)
 
 
 func apply_wave_rock() -> void:
-	apply_torque(sin(_wave_time * TAU / wave_rock_period) * wave_rock_strength)
+	var rock := wave_rock_strength * (cargo_wave_rock_mult if has_cargo else 1.0)
+	apply_torque(sin(_wave_time * TAU / wave_rock_period) * rock)
 
 
 func apply_chop() -> void:
 	if _chop_timer > 0.0:
 		return
-	apply_central_force(Vector2.from_angle(randf() * TAU) * chop_strength)
+	var chop := chop_strength * (cargo_chop_mult if has_cargo else 1.0)
+	apply_central_force(Vector2.from_angle(randf() * TAU) * chop)
 	_chop_timer = randf_range(chop_interval * 0.5, chop_interval * 1.5)
 
 
@@ -123,13 +181,16 @@ func apply_water_drag(delta: float) -> void:
 	side_vel *= 1.0 - water_lateral_drag * delta
 
 	linear_velocity = fwd * fwd_vel + side * side_vel
-	angular_velocity *= 1.0 - water_angular_drag * delta
+	var ang_drag := water_angular_drag * (cargo_angular_drag_mult if has_cargo else 1.0)
+	angular_velocity *= 1.0 - ang_drag * delta
 
 
 func clamp_velocity() -> void:
 	var limit := max_speed * (1.0 - cargo_speed_penalty) if has_cargo else max_speed
-	if linear_velocity.length() > limit:
-		linear_velocity = linear_velocity.normalized() * limit
+	var spd := linear_velocity.length()
+	if spd > limit:
+		# Soft cap: bleed toward the limit rather than snapping hard
+		linear_velocity = linear_velocity.normalized() * lerpf(spd, limit, 0.18)
 
 
 # --- Cargo ---
@@ -137,6 +198,7 @@ func clamp_velocity() -> void:
 func load_cargo() -> void:
 	has_cargo    = true
 	cargo_health = 1.0
+	_spoil_timer = cargo_spoil_delay
 	mass = boat_mass + cargo_mass
 
 

@@ -130,6 +130,8 @@ func _on_island_docked(island: Node2D) -> void:
 		_delivery_count += 1
 		var tier_up := _apply_difficulty()
 		boat.unload_cargo()
+		# Reward careful delivery with a small hull repair
+		boat.boat_health = minf(1.0, boat.boat_health + 0.12)
 		for isl: Node2D in _islands:
 			isl.set_status("")
 		if tier_up:

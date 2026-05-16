@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://blxhgqgobhcow"]
 
-[ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="1_d82p8"]
 [ext_resource type="Script" uid="uid://befaw1o6b1n5h" path="res://Scenes/boat.gd" id="1_g7r5y"]
+[ext_resource type="Texture2D" uid="uid://i10lyc4160uf" path="res://Art/BoatSprite.png" id="2_g7r5y"]
+[ext_resource type="Texture2D" uid="uid://crpdtlql4xc7i" path="res://Art/OarSprite.png" id="3_badgh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d82p8"]
 size = Vector2(40, 118)
@@ -14,16 +15,30 @@ script = ExtResource("1_g7r5y")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2057406936]
 texture_filter = 1
-scale = Vector2(0.359375, 1)
-texture = ExtResource("1_d82p8")
+position = Vector2(-1, -2)
+scale = Vector2(2, 2)
+texture = ExtResource("2_g7r5y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355266272]
 shape = SubResource("RectangleShape2D_d82p8")
 
 [node name="LeftOar" type="Marker2D" parent="." unique_id=974410958]
-position = Vector2(-23, 0)
+position = Vector2(-22, 0)
 
 [node name="RightOar" type="Marker2D" parent="." unique_id=507978813]
-position = Vector2(23, 0)
+position = Vector2(24, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=280702678]
+
+[node name="RightOarSprite" type="Sprite2D" parent="." unique_id=688180215]
+position = Vector2(10, 3)
+scale = Vector2(2, 2)
+texture = ExtResource("3_badgh")
+offset = Vector2(16, 0)
+
+[node name="LeftOarSprite" type="Sprite2D" parent="." unique_id=1038768846]
+position = Vector2(-10, 3)
+scale = Vector2(2, 2)
+texture = ExtResource("3_badgh")
+offset = Vector2(-16, 0)
+flip_h = true
