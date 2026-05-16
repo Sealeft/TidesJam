@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dlpjknyf0dlcv" path="res://Scenes/world.gd" id="1_8j60k"]
 [ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
+[ext_resource type="Script" uid="uid://b6l2nyadqjimk" path="res://Scenes/arrow.gd" id="3_5v1tr"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
 [ext_resource type="PackedScene" uid="uid://cknog38yt3v5u" path="res://Scenes/Islands/Island1.tscn" id="3_k7acu"]
 [ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]

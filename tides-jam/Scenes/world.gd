@@ -35,6 +35,7 @@ var _dead            := false
 @onready var death_score_label : Label       = $MenuLayer/DeathScreen/DeathScoreLabel
 
 
+
 func _ready() -> void:
 	_pick_new_target()
 	# Children call _ready before the parent, so islands are already in their group
@@ -181,3 +182,9 @@ func _on_cargo_lost() -> void:
 	_pickup_island.set_status("[PICKUP]")
 	mission_label.text = "Cargo lost! Return to: " + _pickup_island.island_name
 	health_label.text  = ""
+	
+func get_current_destination() -> Node2D:
+	if _awaiting_pickup:
+		return _pickup_island
+	else:
+		return _deliver_island
