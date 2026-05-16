@@ -57,6 +57,12 @@ var _chop_timer       := 0.0
 var _speed_last_frame := 0.0
 var _spoil_timer      := 0.0  # counts down before spoilage starts
 
+var crash_sounds = [
+	"res://Audio/Crash1.wav",
+	"res://Audio/Crash2.wav",
+	"res://Audio/Crash3.wav"
+]
+
 
 func _ready() -> void:
 	mass = boat_mass
@@ -214,7 +220,7 @@ func _on_body_entered(_body: Node) -> void:
 
 	# Hull takes damage from every collision
 	boat_health = maxf(0.0, boat_health - impact * hull_damage_sensitivity)
-	AudioManager.play("res://Audio/Crash1.wav")
+	AudioManager.play(crash_sounds.pick_random())
 	if boat_health <= 0.0:
 		boat_sunk.emit()
 		return
