@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 	_wave_time  += delta
 	_chop_timer -= delta
 
-	_animate_oars(delta, left, right, reverse)
+	_animate_oars(delta, left, right)
 	apply_rowing(left, right, reverse)
 	apply_wave_rock()
 	apply_chop()
@@ -99,7 +99,7 @@ func _physics_process(delta: float) -> void:
 				cargo_lost.emit()
 
 
-func _animate_oars(delta: float, left: bool, right: bool, reverse: bool) -> void:
+func _animate_oars(delta: float, left: bool, right: bool) -> void:
 	if left:
 		# Rotate continuously
 		left_oar_sprite.rotation_degrees += oar_stroke_speed * delta * left_oar_direction

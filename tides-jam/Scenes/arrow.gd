@@ -13,7 +13,7 @@ func _ready():
 	# Ignore parent's transform/rotation
 	top_level = true
 
-func _process(delta):
+func _process(_delta):
 
 	var target = world.get_current_destination()
 

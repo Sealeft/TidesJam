@@ -27,7 +27,6 @@ var _deliver_island : Node2D  = null
 var _score          := 0
 var _awaiting_pickup := true
 var _delivery_count  := 0
-var _last_tier       := 0
 var _started         := false
 var _dead            := false
 

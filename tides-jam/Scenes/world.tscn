@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dlpjknyf0dlcv" path="res://Scenes/world.gd" id="1_8j60k"]
 [ext_resource type="PackedScene" uid="uid://blxhgqgobhcow" path="res://Scenes/boat.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://d32ddf0n8p3rf" path="res://Art/icon.svg" id="2_go701"]
-[ext_resource type="Script" path="res://Scenes/arrow.gd" id="3_5v1tr"]
+[ext_resource type="Script" uid="uid://b6l2nyadqjimk" path="res://Scenes/arrow.gd" id="3_5v1tr"]
 [ext_resource type="Script" uid="uid://b0ry7615j38sa" path="res://Scenes/tide_hud.gd" id="3_hud0"]
 [ext_resource type="PackedScene" uid="uid://cknog38yt3v5u" path="res://Scenes/Islands/Island1.tscn" id="3_k7acu"]
 [ext_resource type="Texture2D" uid="uid://cy13ute1sc7jo" path="res://Art/arrow.png" id="4_7yui6"]
@@ -72,6 +72,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_go701")
 stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1026843574]
 
@@ -82,6 +83,7 @@ anchors_preset = 0
 offset_right = 120.0
 offset_bottom = 140.0
 script = ExtResource("3_hud0")
+metadata/_edit_use_anchors_ = true
 
 [node name="StrengthLabel" type="Label" parent="HUDLayer/TideHUD" unique_id=142557449]
 layout_mode = 0
@@ -90,6 +92,7 @@ offset_right = 120.0
 offset_bottom = 140.0
 text = "Tide: 0"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="DeliveryHUD" type="Control" parent="HUDLayer" unique_id=1940554761]
 layout_mode = 3
@@ -98,18 +101,21 @@ offset_left = 130.0
 offset_top = 8.0
 offset_right = 430.0
 offset_bottom = 148.0
+metadata/_edit_use_anchors_ = true
 
 [node name="MissionLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=124876991]
 layout_mode = 0
 offset_right = 300.0
 offset_bottom = 32.0
 text = "Loading..."
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=211421676]
 layout_mode = 0
 offset_top = 36.0
 offset_right = 300.0
 offset_bottom = 68.0
+metadata/_edit_use_anchors_ = true
 
 [node name="HullLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=415485808]
 layout_mode = 0
@@ -117,6 +123,7 @@ offset_top = 72.0
 offset_right = 300.0
 offset_bottom = 104.0
 text = "Hull: 100%"
+metadata/_edit_use_anchors_ = true
 
 [node name="ScoreLabel" type="Label" parent="HUDLayer/DeliveryHUD" unique_id=495946689]
 layout_mode = 0
@@ -124,6 +131,7 @@ offset_top = 108.0
 offset_right = 300.0
 offset_bottom = 140.0
 text = "Score: 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="MenuLayer" type="CanvasLayer" parent="." unique_id=435197973]
 layer = 10
@@ -135,6 +143,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.02, 0.05, 0.15, 0.88)
+metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="Label" parent="MenuLayer/StartScreen" unique_id=1902567803]
 layout_mode = 0
@@ -150,9 +159,11 @@ theme_override_font_sizes/font_size = 72
 text = "TIDES"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Subtitle" type="Label" parent="MenuLayer/StartScreen" unique_id=1886881332]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -166,6 +177,7 @@ A - Left Oar
 D - Right Oar
 S + Oars - Reverse"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="StartHint" type="Label" parent="MenuLayer/StartScreen" unique_id=1209325312]
 layout_mode = 1
@@ -183,6 +195,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 18
 text = "Press any key to begin"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="DeathScreen" type="ColorRect" parent="MenuLayer" unique_id=434508975]
 visible = false
@@ -1056,20 +1069,20 @@ position = Vector2(-741, 1910)
 position = Vector2(-535, 1977)
 
 [node name="BarrelSpawner" type="Node2D" parent="." unique_id=37320910]
-position = Vector2(3031, 429)
+position = Vector2(3448, 238)
 script = ExtResource("13_c5t2i")
 
 [node name="BarrelSpawnTimer" type="Timer" parent="BarrelSpawner" unique_id=1778226547]
-wait_time = 2.0
+wait_time = 1.5
 autostart = true
 
 [node name="BarrelSpawner2" type="Node2D" parent="." unique_id=71200922]
-position = Vector2(-1796, 478)
+position = Vector2(-2392, 359)
 script = ExtResource("13_c5t2i")
 barrel_direction = false
 
 [node name="BarrelSpawnTimer" type="Timer" parent="BarrelSpawner2" unique_id=1605269485]
-wait_time = 2.0
+wait_time = 1.5
 autostart = true
 
 [node name="WorldBorder" type="Node2D" parent="." unique_id=5621338]

@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -22,5 +22,5 @@ func spawn_barrel() -> void:
 	barrel.dir = barrel_direction
 	add_child(barrel)
 	
-	var offset = Vector2(randf_range(-100, 100), randf_range(-1000, 1000))
+	var offset = Vector2(randf_range(-100, 100), randf_range(-1200, 1200))
 	barrel.global_position = global_position + offset
