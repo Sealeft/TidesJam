@@ -9,99 +9,65 @@
 [ext_resource type="Texture2D" uid="uid://cy13ute1sc7jo" path="res://Art/arrow.png" id="4_7yui6"]
 [ext_resource type="Shader" uid="uid://cl2oi3107qrk5" path="res://Scenes/water_shader.gdshader" id="6_k7acu"]
 [ext_resource type="PackedScene" uid="uid://dtemxbf54v81o" path="res://Scenes/rock.tscn" id="6_rock0"]
-[ext_resource type="PackedScene" uid="uid://cubermhr67bp8" path="res://Scenes/whirlpool.tscn" id="7_whirl"]
 [ext_resource type="PackedScene" uid="uid://s0wvebi88b0u" path="res://Scenes/Islands/Island2.tscn" id="9_5v1tr"]
 [ext_resource type="PackedScene" uid="uid://bqb1wpkcu75n8" path="res://Scenes/Islands/Island3.tscn" id="10_0fj1v"]
 [ext_resource type="Script" uid="uid://debvjc1eusbbs" path="res://Scenes/barrel_spawner.gd" id="13_c5t2i"]
+[ext_resource type="PackedScene" uid="uid://dnmfim5hskubl" path="res://Scenes/Islands/Island4.tscn" id="13_e0ngr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_k7acu"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5v1tr"]
 noise = SubResource("FastNoiseLite_k7acu")
+seamless = true
+seamless_blend_skirt = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_0fj1v"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ikia7"]
 noise = SubResource("FastNoiseLite_0fj1v")
 seamless = true
+seamless_blend_skirt = 0.51
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5v1tr"]
 shader = ExtResource("6_k7acu")
 shader_parameter/waterNoise = SubResource("NoiseTexture2D_ikia7")
 shader_parameter/waterDistortionNoise = SubResource("NoiseTexture2D_5v1tr")
-shader_parameter/waterColor = Color(0.11764706, 0.34509805, 0.5803922, 1)
+shader_parameter/waterColor = Color(0.14901961, 0.46666667, 0.68235296, 1)
 shader_parameter/colorCorection = 0.35
-shader_parameter/distortionForce = 0.01
-shader_parameter/WDBrightness = 1.5
-shader_parameter/WDFreq = 0.60000000894071
-shader_parameter/WDSize = 0.9
-shader_parameter/WDSpeed = 4.0
+shader_parameter/distortionForce = 0.018000000855
+shader_parameter/WDBrightness = 1.05000001564626
+shader_parameter/WDFreq = 0.50000000745059
+shader_parameter/WDSize = 1.0500000305474
+shader_parameter/WDSpeed = 8.60000011324912
 shader_parameter/tiling = Vector2(1, 1)
 shader_parameter/offSetSpeed = Vector2(0.1, 0.1)
 shader_parameter/backGroundDirX = 0.01
 shader_parameter/backGroundDirY = 0.01
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5t2i"]
+size = Vector2(327, 7470)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0ngr"]
+size = Vector2(7511.5, 465.5)
+
 [node name="World" type="Node2D" unique_id=387763137]
 script = ExtResource("1_8j60k")
-
-[node name="Timer" type="Timer" parent="." unique_id=222476802]
-wait_time = 5.0
-autostart = true
-
-[node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
-position = Vector2(577, 315)
-cargo_mass = 0.75
-
-[node name="Node2D" type="Node2D" parent="Boat" unique_id=204048574]
-script = ExtResource("3_5v1tr")
-
-[node name="ArrowSprite" type="Sprite2D" parent="Boat/Node2D" unique_id=621493020]
-texture = ExtResource("4_7yui6")
-
-[node name="Island1" parent="." unique_id=330354515 instance=ExtResource("3_k7acu")]
-position = Vector2(1003, 67)
-
-[node name="Island2" parent="." unique_id=570782506 instance=ExtResource("9_5v1tr")]
-position = Vector2(19, 54)
-
-[node name="Island3" parent="." unique_id=309626073 instance=ExtResource("10_0fj1v")]
-position = Vector2(27, 699)
-
-[node name="Rock1" parent="." unique_id=1864561052 instance=ExtResource("6_rock0")]
-position = Vector2(390, 230)
-
-[node name="Rock2" parent="." unique_id=602863780 instance=ExtResource("6_rock0")]
-position = Vector2(760, 175)
-
-[node name="Rock3" parent="." unique_id=1374444200 instance=ExtResource("6_rock0")]
-position = Vector2(610, 460)
-
-[node name="Rock4" parent="." unique_id=2077073581 instance=ExtResource("6_rock0")]
-position = Vector2(295, 490)
-
-[node name="Rock5" parent="." unique_id=995990776 instance=ExtResource("6_rock0")]
-position = Vector2(900, 360)
-
-[node name="Whirlpool1" parent="." unique_id=1138843827 instance=ExtResource("7_whirl")]
-position = Vector2(559, -227)
-
-[node name="Whirlpool2" parent="." unique_id=509156178 instance=ExtResource("7_whirl")]
-position = Vector2(699, 1004)
+base_max_tide_strength = 250.0
 
 [node name="WaterLayer" type="CanvasLayer" parent="." unique_id=698679777]
 layer = -3
 follow_viewport_enabled = true
 
 [node name="Water" type="TextureRect" parent="WaterLayer" unique_id=1704547045]
-modulate = Color(0.12156863, 1, 1, 0.42352942)
+modulate = Color(0.5254902, 1, 0.99607843, 1)
 material = SubResource("ShaderMaterial_5v1tr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -934.0
-offset_top = -1224.0
-offset_right = 914.0
-offset_bottom = 1128.0
+offset_left = -4320.0
+offset_top = -4890.0
+offset_right = 4528.0
+offset_bottom = 4462.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_go701")
@@ -161,7 +127,6 @@ text = "Score: 0"
 
 [node name="MenuLayer" type="CanvasLayer" parent="." unique_id=435197973]
 layer = 10
-visible = false
 
 [node name="StartScreen" type="ColorRect" parent="MenuLayer" unique_id=1672337272]
 anchors_preset = 15
@@ -196,19 +161,25 @@ offset_left = -250.0
 offset_top = -40.0
 offset_right = 250.0
 theme_override_font_sizes/font_size = 20
-text = "Deliver cargo across the tides."
+text = "Deliver cargo across the tides.
+A - Left Oar
+D - Right Oar
+S + Oars - Reverse"
 horizontal_alignment = 1
 
 [node name="StartHint" type="Label" parent="MenuLayer/StartScreen" unique_id=1209325312]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = 100.0
-offset_right = 200.0
-offset_bottom = 140.0
+offset_left = -205.0
+offset_top = 144.0
+offset_right = 195.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 18
 text = "Press any key to begin"
 horizontal_alignment = 1
@@ -264,12 +235,862 @@ theme_override_font_sizes/font_size = 18
 text = "Press any key to restart"
 horizontal_alignment = 1
 
+[node name="Timer" type="Timer" parent="." unique_id=222476802]
+wait_time = 5.0
+autostart = true
+
+[node name="Boat" parent="." unique_id=1605365817 instance=ExtResource("1_a02cp")]
+position = Vector2(577, 315)
+cargo_mass = 0.75
+cargo_spoil_rate = 0.005
+cargo_spoil_delay = 30.0
+
+[node name="Node2D" type="Node2D" parent="Boat" unique_id=204048574]
+script = ExtResource("3_5v1tr")
+
+[node name="ArrowSprite" type="Sprite2D" parent="Boat/Node2D" unique_id=621493020]
+texture = ExtResource("4_7yui6")
+
+[node name="Island1" parent="." unique_id=330354515 instance=ExtResource("3_k7acu")]
+position = Vector2(529, -1060)
+island_name = "North Docks"
+
+[node name="Island2" parent="." unique_id=570782506 instance=ExtResource("9_5v1tr")]
+position = Vector2(562, 752)
+island_name = "Middle Kingdom"
+
+[node name="Island3" parent="." unique_id=309626073 instance=ExtResource("10_0fj1v")]
+position = Vector2(2070, -232)
+island_name = "Eastern Archipelago"
+
+[node name="Island4" parent="." unique_id=622534464 instance=ExtResource("13_e0ngr")]
+position = Vector2(1776, 1951)
+island_name = "South Isle"
+
+[node name="Island5" parent="." unique_id=990780305 instance=ExtResource("3_k7acu")]
+position = Vector2(-127, 2209)
+island_name = "Southern Docks"
+
+[node name="Island6" parent="." unique_id=859484106 instance=ExtResource("10_0fj1v")]
+position = Vector2(-1240, 1322)
+island_name = "West Atoll"
+
+[node name="Island7" parent="." unique_id=1409520141 instance=ExtResource("13_e0ngr")]
+position = Vector2(-1258, -269)
+island_name = "Western Isle"
+
+[node name="Rocks" type="Node2D" parent="." unique_id=1727788824]
+
+[node name="Rock1" parent="Rocks" unique_id=1864561052 instance=ExtResource("6_rock0")]
+position = Vector2(-1342, 386)
+
+[node name="Rock2" parent="Rocks" unique_id=475169880 instance=ExtResource("6_rock0")]
+position = Vector2(-749, 703)
+
+[node name="Rock3" parent="Rocks" unique_id=1431413988 instance=ExtResource("6_rock0")]
+position = Vector2(-335, 1231)
+
+[node name="Rock4" parent="Rocks" unique_id=1072605970 instance=ExtResource("6_rock0")]
+position = Vector2(414, 1543)
+
+[node name="Rock5" parent="Rocks" unique_id=99245875 instance=ExtResource("6_rock0")]
+position = Vector2(1149, 1194)
+
+[node name="Rock6" parent="Rocks" unique_id=1412769814 instance=ExtResource("6_rock0")]
+position = Vector2(2187, 1226)
+
+[node name="Rock7" parent="Rocks" unique_id=615338969 instance=ExtResource("6_rock0")]
+position = Vector2(1709, 647)
+
+[node name="Rock8" parent="Rocks" unique_id=806262340 instance=ExtResource("6_rock0")]
+position = Vector2(1470, 68)
+
+[node name="Rock9" parent="Rocks" unique_id=1057340952 instance=ExtResource("6_rock0")]
+position = Vector2(1387, -736)
+
+[node name="Rock10" parent="Rocks" unique_id=1416754547 instance=ExtResource("6_rock0")]
+position = Vector2(854, -304)
+
+[node name="Rock11" parent="Rocks" unique_id=1037917421 instance=ExtResource("6_rock0")]
+position = Vector2(266, -474)
+
+[node name="Rock12" parent="Rocks" unique_id=1590625639 instance=ExtResource("6_rock0")]
+position = Vector2(-354, -125)
+
+[node name="Rock13" parent="Rocks" unique_id=1902416076 instance=ExtResource("6_rock0")]
+position = Vector2(-469, -957)
+
+[node name="Rock14" parent="Rocks" unique_id=949648483 instance=ExtResource("6_rock0")]
+position = Vector2(-1011, -617)
+
+[node name="Rock15" parent="Rocks" unique_id=844775702 instance=ExtResource("6_rock0")]
+position = Vector2(-1158, 780)
+
+[node name="Rock16" parent="Rocks" unique_id=1282952872 instance=ExtResource("6_rock0")]
+position = Vector2(-832, 2062)
+
+[node name="Rock17" parent="Rocks" unique_id=77924145 instance=ExtResource("6_rock0")]
+position = Vector2(997, 2324)
+
+[node name="Rock18" parent="Rocks" unique_id=1307402310 instance=ExtResource("6_rock0")]
+position = Vector2(930, 1868)
+
+[node name="Rock19" parent="Rocks" unique_id=548341817 instance=ExtResource("6_rock0")]
+position = Vector2(2820, 689)
+
+[node name="Rock20" parent="Rocks" unique_id=1392976034 instance=ExtResource("6_rock0")]
+position = Vector2(2728, -822)
+
+[node name="Rock21" parent="Rocks" unique_id=1122782165 instance=ExtResource("6_rock0")]
+position = Vector2(2832, -253)
+
+[node name="Rock22" parent="Rocks" unique_id=1661527839 instance=ExtResource("6_rock0")]
+position = Vector2(1233, 381)
+
+[node name="Rock23" parent="Rocks" unique_id=571990726 instance=ExtResource("6_rock0")]
+position = Vector2(1138, 784)
+
+[node name="Rock24" parent="Rocks" unique_id=879126513 instance=ExtResource("6_rock0")]
+position = Vector2(1173, 731)
+
+[node name="Rock25" parent="Rocks" unique_id=461508419 instance=ExtResource("6_rock0")]
+position = Vector2(739, 1193)
+
+[node name="Rock26" parent="Rocks" unique_id=237638009 instance=ExtResource("6_rock0")]
+position = Vector2(679, 1186)
+
+[node name="Rock27" parent="Rocks" unique_id=988755195 instance=ExtResource("6_rock0")]
+position = Vector2(618, 1182)
+
+[node name="Rock28" parent="Rocks" unique_id=956020753 instance=ExtResource("6_rock0")]
+position = Vector2(90, 847)
+
+[node name="Rock29" parent="Rocks" unique_id=1621310523 instance=ExtResource("6_rock0")]
+position = Vector2(-272, 446)
+
+[node name="Rock30" parent="Rocks" unique_id=690206061 instance=ExtResource("6_rock0")]
+position = Vector2(152, 1932)
+
+[node name="Rock31" parent="Rocks" unique_id=199221550 instance=ExtResource("6_rock0")]
+position = Vector2(251, 2597)
+
+[node name="Rock32" parent="Rocks" unique_id=2115519787 instance=ExtResource("6_rock0")]
+position = Vector2(173, 2576)
+
+[node name="Rock33" parent="Rocks" unique_id=1714786742 instance=ExtResource("6_rock0")]
+position = Vector2(90, 2538)
+
+[node name="Rock34" parent="Rocks" unique_id=1134287174 instance=ExtResource("6_rock0")]
+position = Vector2(-698, 2528)
+
+[node name="Rock35" parent="Rocks" unique_id=1184985184 instance=ExtResource("6_rock0")]
+position = Vector2(-1380, 1841)
+
+[node name="Rock36" parent="Rocks" unique_id=1181858139 instance=ExtResource("6_rock0")]
+position = Vector2(-1705, 1306)
+
+[node name="Rock37" parent="Rocks" unique_id=960246393 instance=ExtResource("6_rock0")]
+position = Vector2(-925, 1158)
+
+[node name="Rock38" parent="Rocks" unique_id=991023977 instance=ExtResource("6_rock0")]
+position = Vector2(-863, 1172)
+
+[node name="Rock39" parent="Rocks" unique_id=1432876915 instance=ExtResource("6_rock0")]
+position = Vector2(-1605, -585)
+
+[node name="Rock40" parent="Rocks" unique_id=483139992 instance=ExtResource("6_rock0")]
+position = Vector2(-1698, -209)
+
+[node name="Rock41" parent="Rocks" unique_id=1583646248 instance=ExtResource("6_rock0")]
+position = Vector2(-1737, -177)
+
+[node name="Rock42" parent="Rocks" unique_id=194867224 instance=ExtResource("6_rock0")]
+position = Vector2(-993, -40)
+
+[node name="Rock43" parent="Rocks" unique_id=1170486921 instance=ExtResource("6_rock0")]
+position = Vector2(397, 95)
+
+[node name="Rock86" parent="Rocks" unique_id=208725100 instance=ExtResource("6_rock0")]
+position = Vector2(2346, 2261)
+
+[node name="Rock87" parent="Rocks" unique_id=943595522 instance=ExtResource("6_rock0")]
+position = Vector2(1604, 504)
+
+[node name="Rock88" parent="Rocks" unique_id=2012450354 instance=ExtResource("6_rock0")]
+position = Vector2(1511, 880)
+
+[node name="Rock89" parent="Rocks" unique_id=685251282 instance=ExtResource("6_rock0")]
+position = Vector2(1472, 912)
+
+[node name="Rock90" parent="Rocks" unique_id=1571620539 instance=ExtResource("6_rock0")]
+position = Vector2(2216, 1049)
+
+[node name="Rock44" parent="Rocks" unique_id=535876734 instance=ExtResource("6_rock0")]
+position = Vector2(432, 62)
+
+[node name="Rock45" parent="Rocks" unique_id=307157896 instance=ExtResource("6_rock0")]
+position = Vector2(484, 38)
+
+[node name="Rock46" parent="Rocks" unique_id=721237995 instance=ExtResource("6_rock0")]
+position = Vector2(563, 20)
+
+[node name="Rock47" parent="Rocks" unique_id=1857512303 instance=ExtResource("6_rock0")]
+position = Vector2(2192, 325)
+
+[node name="Rock48" parent="Rocks" unique_id=223930382 instance=ExtResource("6_rock0")]
+position = Vector2(2054, -698)
+
+[node name="Rock49" parent="Rocks" unique_id=1391687269 instance=ExtResource("6_rock0")]
+position = Vector2(1987, -685)
+
+[node name="Rock50" parent="Rocks" unique_id=2137232265 instance=ExtResource("6_rock0")]
+position = Vector2(1477, -510)
+
+[node name="Rock51" parent="Rocks" unique_id=1353001976 instance=ExtResource("6_rock0")]
+position = Vector2(2676, 46)
+
+[node name="Rock52" parent="Rocks" unique_id=793738477 instance=ExtResource("6_rock0")]
+position = Vector2(2441, -361)
+
+[node name="Rock53" parent="Rocks" unique_id=273512542 instance=ExtResource("6_rock0")]
+position = Vector2(1088, -1114)
+
+[node name="Rock54" parent="Rocks" unique_id=403050540 instance=ExtResource("6_rock0")]
+position = Vector2(1036, -1218)
+
+[node name="Rock55" parent="Rocks" unique_id=423481433 instance=ExtResource("6_rock0")]
+position = Vector2(922, -1315)
+
+[node name="Rock56" parent="Rocks" unique_id=1383581713 instance=ExtResource("6_rock0")]
+position = Vector2(280, -939)
+
+[node name="Rock57" parent="Rocks" unique_id=2144743031 instance=ExtResource("6_rock0")]
+position = Vector2(232, -877)
+
+[node name="Rock58" parent="Rocks" unique_id=80464070 instance=ExtResource("6_rock0")]
+position = Vector2(929, -697)
+
+[node name="Rock59" parent="Rocks" unique_id=25191811 instance=ExtResource("6_rock0")]
+position = Vector2(715, -604)
+
+[node name="Rock60" parent="Rocks" unique_id=86722028 instance=ExtResource("6_rock0")]
+position = Vector2(-272, -652)
+
+[node name="Rock61" parent="Rocks" unique_id=1935079526 instance=ExtResource("6_rock0")]
+position = Vector2(-243, -1295)
+
+[node name="Rock62" parent="Rocks" unique_id=943094904 instance=ExtResource("6_rock0")]
+position = Vector2(2528, 2061)
+
+[node name="Rock63" parent="Rocks" unique_id=1175309670 instance=ExtResource("6_rock0")]
+position = Vector2(2480, 2123)
+
+[node name="Rock64" parent="Rocks" unique_id=106225495 instance=ExtResource("6_rock0")]
+position = Vector2(3177, 2303)
+
+[node name="Rock65" parent="Rocks" unique_id=1517601657 instance=ExtResource("6_rock0")]
+position = Vector2(2963, 2396)
+
+[node name="Rock66" parent="Rocks" unique_id=1029525716 instance=ExtResource("6_rock0")]
+position = Vector2(1976, 2348)
+
+[node name="Rock67" parent="Rocks" unique_id=2048219763 instance=ExtResource("6_rock0")]
+position = Vector2(2005, 1705)
+
+[node name="Rock68" parent="Rocks" unique_id=1359469192 instance=ExtResource("6_rock0")]
+position = Vector2(2089, -1476)
+
+[node name="Rock69" parent="Rocks" unique_id=1031834845 instance=ExtResource("6_rock0")]
+position = Vector2(2041, -1414)
+
+[node name="Rock70" parent="Rocks" unique_id=918550974 instance=ExtResource("6_rock0")]
+position = Vector2(2738, -1234)
+
+[node name="Rock71" parent="Rocks" unique_id=948460535 instance=ExtResource("6_rock0")]
+position = Vector2(2524, -1141)
+
+[node name="Rock72" parent="Rocks" unique_id=701318447 instance=ExtResource("6_rock0")]
+position = Vector2(1537, -1189)
+
+[node name="Rock73" parent="Rocks" unique_id=1281165919 instance=ExtResource("6_rock0")]
+position = Vector2(1566, -1832)
+
+[node name="Rock214" parent="Rocks" unique_id=1732729493 instance=ExtResource("6_rock0")]
+position = Vector2(4047, -1244)
+
+[node name="Rock215" parent="Rocks" unique_id=1351679058 instance=ExtResource("6_rock0")]
+position = Vector2(4744, -1064)
+
+[node name="Rock216" parent="Rocks" unique_id=945110 instance=ExtResource("6_rock0")]
+position = Vector2(4530, -971)
+
+[node name="Rock217" parent="Rocks" unique_id=289209483 instance=ExtResource("6_rock0")]
+position = Vector2(3543, -1019)
+
+[node name="Rock218" parent="Rocks" unique_id=1073196276 instance=ExtResource("6_rock0")]
+position = Vector2(3572, -1662)
+
+[node name="Rock219" parent="Rocks" unique_id=1401407097 instance=ExtResource("6_rock0")]
+position = Vector2(4178, 775)
+
+[node name="Rock220" parent="Rocks" unique_id=446885708 instance=ExtResource("6_rock0")]
+position = Vector2(4875, 955)
+
+[node name="Rock221" parent="Rocks" unique_id=108309063 instance=ExtResource("6_rock0")]
+position = Vector2(4661, 1048)
+
+[node name="Rock222" parent="Rocks" unique_id=1543664036 instance=ExtResource("6_rock0")]
+position = Vector2(3674, 1000)
+
+[node name="Rock223" parent="Rocks" unique_id=746614273 instance=ExtResource("6_rock0")]
+position = Vector2(3703, 357)
+
+[node name="Rock224" parent="Rocks" unique_id=1743256756 instance=ExtResource("6_rock0")]
+position = Vector2(4048, 3025)
+
+[node name="Rock225" parent="Rocks" unique_id=807933509 instance=ExtResource("6_rock0")]
+position = Vector2(4745, 3205)
+
+[node name="Rock226" parent="Rocks" unique_id=1630047758 instance=ExtResource("6_rock0")]
+position = Vector2(4531, 3298)
+
+[node name="Rock227" parent="Rocks" unique_id=1920537190 instance=ExtResource("6_rock0")]
+position = Vector2(3544, 3250)
+
+[node name="Rock228" parent="Rocks" unique_id=1234866358 instance=ExtResource("6_rock0")]
+position = Vector2(3573, 2607)
+
+[node name="Rock229" parent="Rocks" unique_id=1333158262 instance=ExtResource("6_rock0")]
+position = Vector2(2116, 3818)
+
+[node name="Rock230" parent="Rocks" unique_id=659997205 instance=ExtResource("6_rock0")]
+position = Vector2(2813, 3998)
+
+[node name="Rock231" parent="Rocks" unique_id=535806532 instance=ExtResource("6_rock0")]
+position = Vector2(2599, 4091)
+
+[node name="Rock232" parent="Rocks" unique_id=2112375314 instance=ExtResource("6_rock0")]
+position = Vector2(1612, 4043)
+
+[node name="Rock233" parent="Rocks" unique_id=1812987140 instance=ExtResource("6_rock0")]
+position = Vector2(1641, 3400)
+
+[node name="Rock234" parent="Rocks" unique_id=1106827477 instance=ExtResource("6_rock0")]
+position = Vector2(-797, 3688)
+
+[node name="Rock235" parent="Rocks" unique_id=1101082177 instance=ExtResource("6_rock0")]
+position = Vector2(-100, 3868)
+
+[node name="Rock236" parent="Rocks" unique_id=952214845 instance=ExtResource("6_rock0")]
+position = Vector2(-314, 3961)
+
+[node name="Rock237" parent="Rocks" unique_id=609343544 instance=ExtResource("6_rock0")]
+position = Vector2(-1301, 3913)
+
+[node name="Rock238" parent="Rocks" unique_id=103078858 instance=ExtResource("6_rock0")]
+position = Vector2(-1272, 3270)
+
+[node name="Rock239" parent="Rocks" unique_id=741596254 instance=ExtResource("6_rock0")]
+position = Vector2(-2960, -1907)
+
+[node name="Rock240" parent="Rocks" unique_id=823583387 instance=ExtResource("6_rock0")]
+position = Vector2(-2263, -1727)
+
+[node name="Rock241" parent="Rocks" unique_id=1384544592 instance=ExtResource("6_rock0")]
+position = Vector2(-2477, -1634)
+
+[node name="Rock242" parent="Rocks" unique_id=675436764 instance=ExtResource("6_rock0")]
+position = Vector2(-3464, -1682)
+
+[node name="Rock243" parent="Rocks" unique_id=601675514 instance=ExtResource("6_rock0")]
+position = Vector2(-3435, -2325)
+
+[node name="Rock244" parent="Rocks" unique_id=1878096519 instance=ExtResource("6_rock0")]
+position = Vector2(-1431, -3508)
+
+[node name="Rock245" parent="Rocks" unique_id=1417588285 instance=ExtResource("6_rock0")]
+position = Vector2(-734, -3328)
+
+[node name="Rock246" parent="Rocks" unique_id=1667348721 instance=ExtResource("6_rock0")]
+position = Vector2(-948, -3235)
+
+[node name="Rock247" parent="Rocks" unique_id=1010804407 instance=ExtResource("6_rock0")]
+position = Vector2(-1935, -3283)
+
+[node name="Rock248" parent="Rocks" unique_id=735645227 instance=ExtResource("6_rock0")]
+position = Vector2(-1906, -3926)
+
+[node name="Rock249" parent="Rocks" unique_id=335419149 instance=ExtResource("6_rock0")]
+position = Vector2(2910, -3580)
+
+[node name="Rock250" parent="Rocks" unique_id=2069924814 instance=ExtResource("6_rock0")]
+position = Vector2(3607, -3400)
+
+[node name="Rock251" parent="Rocks" unique_id=923841363 instance=ExtResource("6_rock0")]
+position = Vector2(3393, -3307)
+
+[node name="Rock252" parent="Rocks" unique_id=511362010 instance=ExtResource("6_rock0")]
+position = Vector2(2406, -3355)
+
+[node name="Rock253" parent="Rocks" unique_id=1589025969 instance=ExtResource("6_rock0")]
+position = Vector2(2435, -3998)
+
+[node name="Rock254" parent="Rocks" unique_id=1588254713 instance=ExtResource("6_rock0")]
+position = Vector2(4785, -2484)
+
+[node name="Rock255" parent="Rocks" unique_id=914630825 instance=ExtResource("6_rock0")]
+position = Vector2(5482, -2304)
+
+[node name="Rock256" parent="Rocks" unique_id=715295592 instance=ExtResource("6_rock0")]
+position = Vector2(5268, -2211)
+
+[node name="Rock257" parent="Rocks" unique_id=101294369 instance=ExtResource("6_rock0")]
+position = Vector2(4281, -2259)
+
+[node name="Rock258" parent="Rocks" unique_id=141675701 instance=ExtResource("6_rock0")]
+position = Vector2(4310, -2902)
+
+[node name="Rock74" parent="Rocks" unique_id=1776210739 instance=ExtResource("6_rock0")]
+position = Vector2(-1099, -1395)
+
+[node name="Rock75" parent="Rocks" unique_id=1634656272 instance=ExtResource("6_rock0")]
+position = Vector2(-1147, -1333)
+
+[node name="Rock76" parent="Rocks" unique_id=881582136 instance=ExtResource("6_rock0")]
+position = Vector2(-450, -1153)
+
+[node name="Rock77" parent="Rocks" unique_id=1891103315 instance=ExtResource("6_rock0")]
+position = Vector2(-664, -1060)
+
+[node name="Rock78" parent="Rocks" unique_id=1525905500 instance=ExtResource("6_rock0")]
+position = Vector2(-1651, -1108)
+
+[node name="Rock79" parent="Rocks" unique_id=697427625 instance=ExtResource("6_rock0")]
+position = Vector2(-1622, -1751)
+
+[node name="Rock80" parent="Rocks" unique_id=845027166 instance=ExtResource("6_rock0")]
+position = Vector2(24, 1886)
+
+[node name="Rock81" parent="Rocks" unique_id=1872859812 instance=ExtResource("6_rock0")]
+position = Vector2(-24, 1948)
+
+[node name="Rock82" parent="Rocks" unique_id=1794143447 instance=ExtResource("6_rock0")]
+position = Vector2(673, 2128)
+
+[node name="Rock83" parent="Rocks" unique_id=250816655 instance=ExtResource("6_rock0")]
+position = Vector2(459, 2221)
+
+[node name="Rock170" parent="Rocks" unique_id=606572157 instance=ExtResource("6_rock0")]
+position = Vector2(-1016, 2861)
+
+[node name="Rock171" parent="Rocks" unique_id=960593213 instance=ExtResource("6_rock0")]
+position = Vector2(-1064, 2923)
+
+[node name="Rock172" parent="Rocks" unique_id=1483876610 instance=ExtResource("6_rock0")]
+position = Vector2(-367, 3103)
+
+[node name="Rock173" parent="Rocks" unique_id=747657376 instance=ExtResource("6_rock0")]
+position = Vector2(-581, 3196)
+
+[node name="Rock174" parent="Rocks" unique_id=260517025 instance=ExtResource("6_rock0")]
+position = Vector2(1389, 2807)
+
+[node name="Rock175" parent="Rocks" unique_id=1829521296 instance=ExtResource("6_rock0")]
+position = Vector2(1341, 2869)
+
+[node name="Rock176" parent="Rocks" unique_id=645687164 instance=ExtResource("6_rock0")]
+position = Vector2(2038, 3049)
+
+[node name="Rock177" parent="Rocks" unique_id=22761028 instance=ExtResource("6_rock0")]
+position = Vector2(1824, 3142)
+
+[node name="Rock178" parent="Rocks" unique_id=1561356355 instance=ExtResource("6_rock0")]
+position = Vector2(3274, 1767)
+
+[node name="Rock179" parent="Rocks" unique_id=1320288570 instance=ExtResource("6_rock0")]
+position = Vector2(3226, 1829)
+
+[node name="Rock180" parent="Rocks" unique_id=455565922 instance=ExtResource("6_rock0")]
+position = Vector2(3923, 2009)
+
+[node name="Rock181" parent="Rocks" unique_id=1957410282 instance=ExtResource("6_rock0")]
+position = Vector2(3709, 2102)
+
+[node name="Rock182" parent="Rocks" unique_id=1070683950 instance=ExtResource("6_rock0")]
+position = Vector2(3285, -606)
+
+[node name="Rock183" parent="Rocks" unique_id=1719466469 instance=ExtResource("6_rock0")]
+position = Vector2(3237, -544)
+
+[node name="Rock184" parent="Rocks" unique_id=532871225 instance=ExtResource("6_rock0")]
+position = Vector2(3934, -364)
+
+[node name="Rock185" parent="Rocks" unique_id=2001242555 instance=ExtResource("6_rock0")]
+position = Vector2(3720, -271)
+
+[node name="Rock186" parent="Rocks" unique_id=701796934 instance=ExtResource("6_rock0")]
+position = Vector2(2407, -2188)
+
+[node name="Rock187" parent="Rocks" unique_id=223870736 instance=ExtResource("6_rock0")]
+position = Vector2(2359, -2126)
+
+[node name="Rock188" parent="Rocks" unique_id=1501083402 instance=ExtResource("6_rock0")]
+position = Vector2(3056, -1946)
+
+[node name="Rock189" parent="Rocks" unique_id=97582824 instance=ExtResource("6_rock0")]
+position = Vector2(2842, -1853)
+
+[node name="Rock190" parent="Rocks" unique_id=1597528097 instance=ExtResource("6_rock0")]
+position = Vector2(1779, -2903)
+
+[node name="Rock191" parent="Rocks" unique_id=44284508 instance=ExtResource("6_rock0")]
+position = Vector2(1731, -2841)
+
+[node name="Rock192" parent="Rocks" unique_id=1807813124 instance=ExtResource("6_rock0")]
+position = Vector2(2428, -2661)
+
+[node name="Rock193" parent="Rocks" unique_id=332871570 instance=ExtResource("6_rock0")]
+position = Vector2(2214, -2568)
+
+[node name="Rock194" parent="Rocks" unique_id=1004471534 instance=ExtResource("6_rock0")]
+position = Vector2(-615, -2892)
+
+[node name="Rock195" parent="Rocks" unique_id=1387813315 instance=ExtResource("6_rock0")]
+position = Vector2(-663, -2830)
+
+[node name="Rock196" parent="Rocks" unique_id=1087051278 instance=ExtResource("6_rock0")]
+position = Vector2(34, -2650)
+
+[node name="Rock197" parent="Rocks" unique_id=245337501 instance=ExtResource("6_rock0")]
+position = Vector2(-180, -2557)
+
+[node name="Rock198" parent="Rocks" unique_id=918530873 instance=ExtResource("6_rock0")]
+position = Vector2(-2381, -2437)
+
+[node name="Rock199" parent="Rocks" unique_id=662192590 instance=ExtResource("6_rock0")]
+position = Vector2(-2429, -2375)
+
+[node name="Rock200" parent="Rocks" unique_id=113829211 instance=ExtResource("6_rock0")]
+position = Vector2(-1732, -2195)
+
+[node name="Rock201" parent="Rocks" unique_id=1930102205 instance=ExtResource("6_rock0")]
+position = Vector2(-1946, -2102)
+
+[node name="Rock202" parent="Rocks" unique_id=1577954500 instance=ExtResource("6_rock0")]
+position = Vector2(-2728, -227)
+
+[node name="Rock203" parent="Rocks" unique_id=615824034 instance=ExtResource("6_rock0")]
+position = Vector2(-2776, -165)
+
+[node name="Rock204" parent="Rocks" unique_id=293526356 instance=ExtResource("6_rock0")]
+position = Vector2(-2079, 15)
+
+[node name="Rock205" parent="Rocks" unique_id=956225018 instance=ExtResource("6_rock0")]
+position = Vector2(-2293, 108)
+
+[node name="Rock206" parent="Rocks" unique_id=462500735 instance=ExtResource("6_rock0")]
+position = Vector2(-2782, 1420)
+
+[node name="Rock207" parent="Rocks" unique_id=1893200493 instance=ExtResource("6_rock0")]
+position = Vector2(-2830, 1482)
+
+[node name="Rock208" parent="Rocks" unique_id=752630256 instance=ExtResource("6_rock0")]
+position = Vector2(-2133, 1662)
+
+[node name="Rock209" parent="Rocks" unique_id=579443075 instance=ExtResource("6_rock0")]
+position = Vector2(-2347, 1755)
+
+[node name="Rock210" parent="Rocks" unique_id=2013709557 instance=ExtResource("6_rock0")]
+position = Vector2(-2468, 2092)
+
+[node name="Rock211" parent="Rocks" unique_id=1116484446 instance=ExtResource("6_rock0")]
+position = Vector2(-2516, 2154)
+
+[node name="Rock212" parent="Rocks" unique_id=1787037032 instance=ExtResource("6_rock0")]
+position = Vector2(-1819, 2334)
+
+[node name="Rock213" parent="Rocks" unique_id=1300694726 instance=ExtResource("6_rock0")]
+position = Vector2(-2033, 2427)
+
+[node name="Rock84" parent="Rocks" unique_id=830519158 instance=ExtResource("6_rock0")]
+position = Vector2(-528, 2173)
+
+[node name="Rock85" parent="Rocks" unique_id=1505525383 instance=ExtResource("6_rock0")]
+position = Vector2(-499, 1530)
+
+[node name="Rock91" parent="Rocks" unique_id=1474140215 instance=ExtResource("6_rock0")]
+position = Vector2(822, 1725)
+
+[node name="Rock92" parent="Rocks" unique_id=664045887 instance=ExtResource("6_rock0")]
+position = Vector2(-165, 1677)
+
+[node name="Rock93" parent="Rocks" unique_id=243954663 instance=ExtResource("6_rock0")]
+position = Vector2(-136, 1034)
+
+[node name="Rock94" parent="Rocks" unique_id=1662335583 instance=ExtResource("6_rock0")]
+position = Vector2(2968, 1436)
+
+[node name="Rock95" parent="Rocks" unique_id=1027544115 instance=ExtResource("6_rock0")]
+position = Vector2(1981, 1388)
+
+[node name="Rock96" parent="Rocks" unique_id=728435159 instance=ExtResource("6_rock0")]
+position = Vector2(2010, 745)
+
+[node name="Rock97" parent="Rocks" unique_id=264220704 instance=ExtResource("6_rock0")]
+position = Vector2(1266, -1509)
+
+[node name="Rock98" parent="Rocks" unique_id=1526494631 instance=ExtResource("6_rock0")]
+position = Vector2(279, -1557)
+
+[node name="Rock99" parent="Rocks" unique_id=232669063 instance=ExtResource("6_rock0")]
+position = Vector2(308, -2200)
+
+[node name="Rock100" parent="Rocks" unique_id=1668721557 instance=ExtResource("6_rock0")]
+position = Vector2(186, -1331)
+
+[node name="Rock101" parent="Rocks" unique_id=1209933230 instance=ExtResource("6_rock0")]
+position = Vector2(-801, -1379)
+
+[node name="Rock102" parent="Rocks" unique_id=1033962999 instance=ExtResource("6_rock0")]
+position = Vector2(-772, -2022)
+
+[node name="Rock103" parent="Rocks" unique_id=583461514 instance=ExtResource("6_rock0")]
+position = Vector2(75, 438)
+
+[node name="Rock104" parent="Rocks" unique_id=1765817554 instance=ExtResource("6_rock0")]
+position = Vector2(-912, 390)
+
+[node name="Rock105" parent="Rocks" unique_id=404588252 instance=ExtResource("6_rock0")]
+position = Vector2(-883, -253)
+
+[node name="Rock106" parent="Rocks" unique_id=1660875311 instance=ExtResource("6_rock0")]
+position = Vector2(-633, 164)
+
+[node name="Rock107" parent="Rocks" unique_id=2061990064 instance=ExtResource("6_rock0")]
+position = Vector2(-433, 681)
+
+[node name="Rock108" parent="Rocks" unique_id=974992159 instance=ExtResource("6_rock0")]
+position = Vector2(123, 1259)
+
+[node name="Rock109" parent="Rocks" unique_id=163147876 instance=ExtResource("6_rock0")]
+position = Vector2(1168, 1587)
+
+[node name="Rock110" parent="Rocks" unique_id=707021350 instance=ExtResource("6_rock0")]
+position = Vector2(1229, 1515)
+
+[node name="Rock111" parent="Rocks" unique_id=2089837934 instance=ExtResource("6_rock0")]
+position = Vector2(1351, 1443)
+
+[node name="Rock112" parent="Rocks" unique_id=1845509418 instance=ExtResource("6_rock0")]
+position = Vector2(1473, 1471)
+
+[node name="Rock113" parent="Rocks" unique_id=1289609663 instance=ExtResource("6_rock0")]
+position = Vector2(1612, 1499)
+
+[node name="Rock114" parent="Rocks" unique_id=1769917756 instance=ExtResource("6_rock0")]
+position = Vector2(1751, 1488)
+
+[node name="Rock115" parent="Rocks" unique_id=1276388314 instance=ExtResource("6_rock0")]
+position = Vector2(2552, 815)
+
+[node name="Rock116" parent="Rocks" unique_id=211911302 instance=ExtResource("6_rock0")]
+position = Vector2(2602, 943)
+
+[node name="Rock117" parent="Rocks" unique_id=105062281 instance=ExtResource("6_rock0")]
+position = Vector2(2652, 1088)
+
+[node name="Rock118" parent="Rocks" unique_id=1342193281 instance=ExtResource("6_rock0")]
+position = Vector2(2696, 1299)
+
+[node name="Rock119" parent="Rocks" unique_id=118909878 instance=ExtResource("6_rock0")]
+position = Vector2(1528, -197)
+
+[node name="Rock120" parent="Rocks" unique_id=929133777 instance=ExtResource("6_rock0")]
+position = Vector2(1795, -998)
+
+[node name="Rock121" parent="Rocks" unique_id=1754037921 instance=ExtResource("6_rock0")]
+position = Vector2(449, -197)
+
+[node name="Rock122" parent="Rocks" unique_id=1813828283 instance=ExtResource("6_rock0")]
+position = Vector2(1038, 92)
+
+[node name="Rock123" parent="Rocks" unique_id=1035987817 instance=ExtResource("6_rock0")]
+position = Vector2(1027, 887)
+
+[node name="Rock124" parent="Rocks" unique_id=1612229726 instance=ExtResource("6_rock0")]
+position = Vector2(-1002, 1626)
+
+[node name="Rock125" parent="Rocks" unique_id=1120578397 instance=ExtResource("6_rock0")]
+position = Vector2(-913, 1782)
+
+[node name="Rock126" parent="Rocks" unique_id=1506657886 instance=ExtResource("6_rock0")]
+position = Vector2(-741, 1910)
+
+[node name="Rock127" parent="Rocks" unique_id=1897370099 instance=ExtResource("6_rock0")]
+position = Vector2(-535, 1977)
+
+[node name="Rock138" parent="Rocks" unique_id=59219997 instance=ExtResource("6_rock0")]
+position = Vector2(-2256, 2798)
+
+[node name="Rock139" parent="Rocks" unique_id=1989554335 instance=ExtResource("6_rock0")]
+position = Vector2(-2167, 2954)
+
+[node name="Rock140" parent="Rocks" unique_id=1860241669 instance=ExtResource("6_rock0")]
+position = Vector2(-1995, 3082)
+
+[node name="Rock141" parent="Rocks" unique_id=1408568861 instance=ExtResource("6_rock0")]
+position = Vector2(-1789, 3149)
+
+[node name="Rock142" parent="Rocks" unique_id=473519976 instance=ExtResource("6_rock0")]
+position = Vector2(2815, 2920)
+
+[node name="Rock143" parent="Rocks" unique_id=796876917 instance=ExtResource("6_rock0")]
+position = Vector2(2904, 3076)
+
+[node name="Rock144" parent="Rocks" unique_id=554358484 instance=ExtResource("6_rock0")]
+position = Vector2(3076, 3204)
+
+[node name="Rock145" parent="Rocks" unique_id=1365954845 instance=ExtResource("6_rock0")]
+position = Vector2(3282, 3271)
+
+[node name="Rock146" parent="Rocks" unique_id=1532707961 instance=ExtResource("6_rock0")]
+position = Vector2(3303, 1089)
+
+[node name="Rock147" parent="Rocks" unique_id=1785525337 instance=ExtResource("6_rock0")]
+position = Vector2(3392, 1245)
+
+[node name="Rock148" parent="Rocks" unique_id=1446067176 instance=ExtResource("6_rock0")]
+position = Vector2(3564, 1373)
+
+[node name="Rock149" parent="Rocks" unique_id=1161417875 instance=ExtResource("6_rock0")]
+position = Vector2(3770, 1440)
+
+[node name="Rock150" parent="Rocks" unique_id=160777152 instance=ExtResource("6_rock0")]
+position = Vector2(3346, -2703)
+
+[node name="Rock151" parent="Rocks" unique_id=1946675394 instance=ExtResource("6_rock0")]
+position = Vector2(3435, -2547)
+
+[node name="Rock152" parent="Rocks" unique_id=1721930611 instance=ExtResource("6_rock0")]
+position = Vector2(3607, -2419)
+
+[node name="Rock153" parent="Rocks" unique_id=959195166 instance=ExtResource("6_rock0")]
+position = Vector2(3813, -2352)
+
+[node name="Rock154" parent="Rocks" unique_id=582973950 instance=ExtResource("6_rock0")]
+position = Vector2(670, -2876)
+
+[node name="Rock155" parent="Rocks" unique_id=209539799 instance=ExtResource("6_rock0")]
+position = Vector2(759, -2720)
+
+[node name="Rock156" parent="Rocks" unique_id=1041556687 instance=ExtResource("6_rock0")]
+position = Vector2(931, -2592)
+
+[node name="Rock157" parent="Rocks" unique_id=431046836 instance=ExtResource("6_rock0")]
+position = Vector2(1137, -2525)
+
+[node name="Rock158" parent="Rocks" unique_id=1937066084 instance=ExtResource("6_rock0")]
+position = Vector2(-1930, -2919)
+
+[node name="Rock159" parent="Rocks" unique_id=2110775582 instance=ExtResource("6_rock0")]
+position = Vector2(-1841, -2763)
+
+[node name="Rock160" parent="Rocks" unique_id=870501576 instance=ExtResource("6_rock0")]
+position = Vector2(-1669, -2635)
+
+[node name="Rock161" parent="Rocks" unique_id=1718494795 instance=ExtResource("6_rock0")]
+position = Vector2(-1463, -2568)
+
+[node name="Rock162" parent="Rocks" unique_id=81446959 instance=ExtResource("6_rock0")]
+position = Vector2(-2450, -1185)
+
+[node name="Rock163" parent="Rocks" unique_id=668748251 instance=ExtResource("6_rock0")]
+position = Vector2(-2361, -1029)
+
+[node name="Rock164" parent="Rocks" unique_id=911253884 instance=ExtResource("6_rock0")]
+position = Vector2(-2189, -901)
+
+[node name="Rock165" parent="Rocks" unique_id=1656499797 instance=ExtResource("6_rock0")]
+position = Vector2(-1983, -834)
+
+[node name="Rock166" parent="Rocks" unique_id=1675169126 instance=ExtResource("6_rock0")]
+position = Vector2(-2526, 592)
+
+[node name="Rock167" parent="Rocks" unique_id=1159953955 instance=ExtResource("6_rock0")]
+position = Vector2(-2437, 748)
+
+[node name="Rock168" parent="Rocks" unique_id=2013660723 instance=ExtResource("6_rock0")]
+position = Vector2(-2265, 876)
+
+[node name="Rock169" parent="Rocks" unique_id=695629965 instance=ExtResource("6_rock0")]
+position = Vector2(-2059, 943)
+
+[node name="Rock128" parent="Rocks" unique_id=1575291150 instance=ExtResource("6_rock0")]
+position = Vector2(2696, 1299)
+
+[node name="Rock129" parent="Rocks" unique_id=593884653 instance=ExtResource("6_rock0")]
+position = Vector2(1528, -197)
+
+[node name="Rock130" parent="Rocks" unique_id=1649197082 instance=ExtResource("6_rock0")]
+position = Vector2(1795, -998)
+
+[node name="Rock131" parent="Rocks" unique_id=566157216 instance=ExtResource("6_rock0")]
+position = Vector2(449, -197)
+
+[node name="Rock132" parent="Rocks" unique_id=152499801 instance=ExtResource("6_rock0")]
+position = Vector2(1038, 92)
+
+[node name="Rock133" parent="Rocks" unique_id=1334390534 instance=ExtResource("6_rock0")]
+position = Vector2(1027, 887)
+
+[node name="Rock134" parent="Rocks" unique_id=380702974 instance=ExtResource("6_rock0")]
+position = Vector2(-1002, 1626)
+
+[node name="Rock135" parent="Rocks" unique_id=1002432050 instance=ExtResource("6_rock0")]
+position = Vector2(-913, 1782)
+
+[node name="Rock136" parent="Rocks" unique_id=1249976438 instance=ExtResource("6_rock0")]
+position = Vector2(-741, 1910)
+
+[node name="Rock137" parent="Rocks" unique_id=1897285381 instance=ExtResource("6_rock0")]
+position = Vector2(-535, 1977)
+
 [node name="BarrelSpawner" type="Node2D" parent="." unique_id=37320910]
-position = Vector2(1802, 405)
+position = Vector2(3031, 429)
 script = ExtResource("13_c5t2i")
 
 [node name="BarrelSpawnTimer" type="Timer" parent="BarrelSpawner" unique_id=1778226547]
-wait_time = 10.0
+wait_time = 2.0
 autostart = true
 
+[node name="BarrelSpawner2" type="Node2D" parent="." unique_id=71200922]
+position = Vector2(-1796, 478)
+script = ExtResource("13_c5t2i")
+barrel_direction = false
+
+[node name="BarrelSpawnTimer" type="Timer" parent="BarrelSpawner2" unique_id=1605269485]
+wait_time = 2.0
+autostart = true
+
+[node name="WorldBorder" type="Node2D" parent="." unique_id=5621338]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldBorder" unique_id=657108381]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBorder/StaticBody2D" unique_id=1740416404]
+position = Vector2(-2923, 100)
+shape = SubResource("RectangleShape2D_c5t2i")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBorder/StaticBody2D" unique_id=375292168]
+position = Vector2(4273, 86)
+shape = SubResource("RectangleShape2D_c5t2i")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBorder/StaticBody2D" unique_id=882749604]
+position = Vector2(683.25, 3630.75)
+shape = SubResource("RectangleShape2D_e0ngr")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBorder/StaticBody2D" unique_id=843005843]
+position = Vector2(699, -3428)
+shape = SubResource("RectangleShape2D_e0ngr")
+
 [connection signal="timeout" from="BarrelSpawner/BarrelSpawnTimer" to="BarrelSpawner" method="_on_barrel_spawn_timer_timeout"]
+[connection signal="timeout" from="BarrelSpawner2/BarrelSpawnTimer" to="BarrelSpawner2" method="_on_barrel_spawn_timer_timeout"]

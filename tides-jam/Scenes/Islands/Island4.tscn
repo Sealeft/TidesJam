@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dnmfim5hskubl"]
+
+[ext_resource type="PackedScene" uid="uid://deixh30fjhnhv" path="res://Scenes/Island.tscn" id="1_xgspu"]
+[ext_resource type="Texture2D" uid="uid://bngopg5dhfx21" path="res://Art/IslandSprite4.png" id="2_aix18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05ldd"]
+size = Vector2(79, 292)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd0n0"]
+size = Vector2(141, 296)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_my4md"]
+size = Vector2(84, 295)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l56wa"]
+size = Vector2(68, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xh63"]
+size = Vector2(80, 161)
+
+[node name="Island4" unique_id=330354515 instance=ExtResource("1_xgspu")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=657449277]
+texture = ExtResource("2_aix18")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="0" unique_id=1460599033]
+position = Vector2(-160.5, -54)
+shape = SubResource("RectangleShape2D_05ldd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="1" unique_id=1111737400]
+position = Vector2(-66.5, 12)
+shape = SubResource("RectangleShape2D_yd0n0")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="2" unique_id=638940450]
+position = Vector2(30, 76.5)
+shape = SubResource("RectangleShape2D_my4md")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="3" unique_id=1399334349]
+position = Vector2(102, 134)
+shape = SubResource("RectangleShape2D_l56wa")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Body" parent_id_path=PackedInt32Array(1038371373) index="4" unique_id=93126288]
+position = Vector2(160, 76.5)
+shape = SubResource("RectangleShape2D_5xh63")
+
+[node name="DockZone" parent="." index="2" unique_id=2123998792]
+visible = true
+position = Vector2(-78, 164)
+
+[node name="StatusLabel" parent="." index="3" unique_id=854552533]
+offset_left = -152.0
+offset_top = 168.0
+offset_right = -12.0
+offset_bottom = 198.0

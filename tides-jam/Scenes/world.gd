@@ -1,13 +1,20 @@
 extends Node
 
 ## Peak force the tide can apply (pixels/second²)
-@export var max_tide_strength := 110.0
+@export var base_max_tide_strength := 110.0
 ## Minimum seconds the tide holds its direction before picking a new one
-@export var tide_hold_min := 7.0
+@export var base_tide_hold_min := 7.0
 ## Maximum seconds the tide holds its direction before picking a new one
-@export var tide_hold_max := 14.0
+@export var base_tide_hold_max := 14.0
 ## How quickly the tide shifts toward its new direction (higher = faster transition)
 @export var tide_lerp_speed := 0.9
+
+var max_tide_strength := 110.0
+## Minimum seconds the tide holds its direction before picking a new one
+var tide_hold_min := 7.0
+## Maximum seconds the tide holds its direction before picking a new one
+var tide_hold_max := 14.0
+
 
 var tide_vec  := Vector2.ZERO
 var _target_vec := Vector2.ZERO
@@ -37,6 +44,9 @@ var _dead            := false
 
 
 func _ready() -> void:
+	max_tide_strength = base_max_tide_strength
+	tide_hold_min = base_tide_hold_min
+	tide_hold_max = base_tide_hold_max
 	_pick_new_target()
 	# Children call _ready before the parent, so islands are already in their group
 	_islands = get_tree().get_nodes_in_group("islands")
@@ -91,7 +101,7 @@ func _update_tide(delta: float) -> void:
 
 func _pick_new_target() -> void:
 	var angle    := randf() * TAU
-	var strength := randf_range(max_tide_strength * 0.2, max_tide_strength)
+	var strength := randf_range(max_tide_strength * 0.5, max_tide_strength)
 	_target_vec  = Vector2.from_angle(angle) * strength
 	_hold_timer  = randf_range(tide_hold_min, tide_hold_max)
 
@@ -130,16 +140,13 @@ func _on_island_docked(island: Node2D) -> void:
 		var health_bonus := int(boat.cargo_health * 3)
 		_score += 1 + health_bonus
 		_delivery_count += 1
-		var tier_up := _apply_difficulty()
+		_apply_difficulty()
 		boat.unload_cargo()
 		# Reward careful delivery with a small hull repair
 		boat.boat_health = minf(1.0, boat.boat_health + 0.12)
 		for isl: Node2D in _islands:
 			isl.set_status("")
-		if tier_up:
-			mission_label.text = "Delivered! +%d  — Tide rising!" % (1 + health_bonus)
-		else:
-			mission_label.text = "Delivered!  +" + str(1 + health_bonus)
+		mission_label.text = "Delivered!  +" + str(1 + health_bonus)
 		health_label.text  = ""
 		score_label.text   = "Score: %d" % _score
 		await get_tree().create_timer(1.5).timeout
@@ -157,15 +164,11 @@ func _update_mission_label() -> void:
 
 ## Scales tide difficulty based on number of completed deliveries.
 ## Returns true when a new difficulty tier is reached.
-func _apply_difficulty() -> bool:
-	var tier := _delivery_count / 3   # integer division — new tier every 3 deliveries
-	max_tide_strength = minf(110.0 + tier * 18.0, 300.0)
-	tide_hold_min     = maxf(7.0  - tier * 0.6,   2.5)
-	tide_hold_max     = maxf(14.0 - tier * 1.2,   5.0)
-	if tier > _last_tier:
-		_last_tier = tier
-		return true
-	return false
+func _apply_difficulty() -> void:
+	max_tide_strength = minf(base_max_tide_strength + _delivery_count * 10.0, 300.0)
+	tide_hold_min     = maxf(base_tide_hold_min  - _delivery_count * 0.6,   2.5)
+	tide_hold_max     = maxf(base_tide_hold_max - _delivery_count * 1.2,   5.0)
+	print(max_tide_strength, tide_hold_max, tide_hold_min)
 
 
 func _on_boat_sunk() -> void:

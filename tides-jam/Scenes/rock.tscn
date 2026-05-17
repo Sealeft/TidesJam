@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bk6gjmoh6oxuf" path="res://Art/RockSprite1.png" id="1_lgx4v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5mkji"]
-radius = 11.0
-height = 48.0
+radius = 12.0
+height = 36.0
 
 [node name="Rock" type="StaticBody2D" unique_id=475169880]
 
@@ -13,5 +13,5 @@ position = Vector2(-1, -11)
 texture = ExtResource("1_lgx4v")
 
 [node name="RockShape" type="CollisionShape2D" parent="." unique_id=601924332]
-position = Vector2(-1, -6)
+position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_5mkji")

@@ -1,5 +1,7 @@
 extends Node2D
 
+
+@export var barrel_direction := true #true = left, false = right
 @onready var barrel_scene := preload("res://Scenes/barrel.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -17,7 +19,8 @@ func _on_barrel_spawn_timer_timeout() -> void:
 
 func spawn_barrel() -> void:
 	var barrel = barrel_scene.instantiate()
+	barrel.dir = barrel_direction
 	add_child(barrel)
 	
-	var offset = Vector2(randf_range(-100, 100), randf_range(-500, 500))
+	var offset = Vector2(randf_range(-100, 100), randf_range(-1000, 1000))
 	barrel.global_position = global_position + offset
